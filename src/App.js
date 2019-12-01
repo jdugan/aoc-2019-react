@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
+import Description from './components/organisms/Description'
+import Form from './components/organisms/Form'
+import Header from './components/organisms/Header'
+import Nav from './components/organisms/Nav'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      day:    "1",
+      env:    "test",
+      puzzle: "1"
+    }
+  }
+
+  handleFormSubmit = (payload) => {
+    const { env, puzzle } = payload
+    this.setState({ env, puzzle })
+  }
+  handleNavItemClick = (day) => {
+    this.setState({ day })
+  }
+
+  render () {
+    const { day } = this.state
+
+    return (
+      <div className="app">
+        <section className="app__header">
+          <Header />
+        </section>
+        <section className="app__navigation">
+          <Nav selectedDay={ day } onClick={ this.handleNavItemClick } />
+        </section>
+        <section className="app__description">
+          <Description selectedDay={ day } />
+        </section>
+        <section className="app__form">
+          <Form selectedDay={ day } onSubmit={ this.handleFormSubmit } />
+        </section>
+        <section className="app__result">
+          Result
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;

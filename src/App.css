@@ -1,22 +1,154 @@
-.App {
-  text-align: center;
+/* ========== TEMPLATES =================================== */
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 4fr 2fr;
+  grid-template-rows: 70px 2fr 3fr;
+  width: 100vw;
+  height: 100vh;
+}
+.app__header {
+  grid-row: 1;
+  grid-column: 1 / span 3;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #ccc;
+}
+.app__navigation {
+  grid-row: 2 / span 2;
+  grid-column: 1;
+  overflow-y: scroll;
+  border-right: 1px solid #ccc;
+}
+.app__description {
+  grid-row: 2 / span 2;
+  grid-column: 2;
+  padding: 1em;
+  overflow-y: scroll;
+  border-right: 1px solid #ccc;
+}
+.app__form {
+  grid-row: 2;
+  grid-column: 3;
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+}
+.app__result {
+  grid-row: 3;
+  grid-column: 3;
+  overflow-y: scroll;
+  background: #fdf6e3;
 }
 
-.App-logo {
-  height: 40vmin;
+
+/* ========== ORGANISMS =================================== */
+
+.description__li {
+  margin-bottom: 0.3em;
+  line-height: 1.2em;
+}
+.description__p {
+  margin: 0 0 0.7em;
+}
+.description__strong {
+  color: #ff6;
+}
+.description__ul {
+  margin: 0.3em 0 1em;
+  padding: 0 0 0 2em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.form__field {
+  margin-bottom: 1.5em;
+}
+.form__label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
   color: white;
 }
+.form__label--radio {
+  display: inline-block;
+  width: 100px;
+  font-size: 1em;
+  font-weight: normal;
+  color: #ccc;
+}
+.form__radio {
+  margin: 0 1em;
+}
 
-.App-link {
-  color: #09d3ac;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+  color: #ccc;
+  border-bottom: 1px solid #333;
+  text-decoration: none;
+}
+.nav-item:hover {
+  font-weight: bold;
+  color: white;
+}
+.nav-item--active {
+  font-weight: bold;
+  color: #ff6;
+}
+.nav-item--active:hover {
+  color: #ff6;
+}
+.nav-item__status {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+/* ========== MOLECULES =================================== */
+
+.status {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.status__label {
+  color: #ff6;
+}
+
+/* ========== ATOMS ======================================= */
+
+.link {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #0c0;
+  text-decoration: none;
+}
+.link:hover {
+  color: #0f0;
+}
+
+.star {
+  margin-left: 0.25em;
+}
+.star--none {
+  color: #669;
+}
+.star--first {
+  color: #ccc;
+}
+.star--both {
+  color: #ff6;
 }
