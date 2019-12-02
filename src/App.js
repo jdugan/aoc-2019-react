@@ -9,8 +9,18 @@ import './App.css';
 class App extends React.Component {
   constructor (props) {
     super(props)
+
+    const today = new Date()
+    const year  = today.getFullYear()
+    const month = today.getMonth() + 1
+    let   day   = today.getDate()
+
+    if (year !== 2019 || month !== 12 || day > 25) {
+      day = 1
+    }
+
     this.state = {
-      day:  "1",
+      day:  day.toString(),
       env:  "test",
       part: "1"
     }

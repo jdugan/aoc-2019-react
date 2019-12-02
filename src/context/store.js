@@ -1,6 +1,6 @@
 const data = {
   "1":  [true, true],
-  "2":  [false, false],
+  "2":  [true, true],
   "3":  [false, false],
   "4":  [false, false],
   "5":  [false, false],

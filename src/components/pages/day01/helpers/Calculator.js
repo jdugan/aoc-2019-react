@@ -12,9 +12,8 @@ class Calculator {
     return this.recursiveTotal()
   }
 
-  // ========== PRIVATE ===================================
+  // ========== RUNNERS ===================================
 
-  // main
   recursiveTotal() {
     const array = this.data.map(mass => {
       let arr = []
@@ -33,13 +32,10 @@ class Calculator {
     return ArrayUtil.sum(array)
   }
 
-  // helpers
+  // ========== HELPERS ===================================
+
   fuelForMass(mass) {
     return Math.floor(mass / 3) - 2
-  }
-
-  sumArray(arr) {
-
   }
 }
 
