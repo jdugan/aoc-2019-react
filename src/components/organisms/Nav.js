@@ -3,7 +3,7 @@ import Item from '../molecules/NavItem'
 import store from '../../context/store'
 
 const Nav = (props) => {
-  const { onClick, selectedDay } = props
+  const { onClick, day: selectedDay } = props
   const days = store.days()
 
   return (

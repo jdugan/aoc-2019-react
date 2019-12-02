@@ -5,18 +5,19 @@ class Form extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      env:    "test",
-      puzzle: "1"
+      env:  "test",
+      part: "1"
     }
   }
 
+  // event handlers
   handleEnvChange = (evt) => {
     const env = evt.target.value
     this.setState({ env })
   }
-  handlePuzzleChange = (evt) => {
-    const puzzle = evt.target.value
-    this.setState({ puzzle })
+  handlePuzzlePartChange = (evt) => {
+    const part = evt.target.value
+    this.setState({ part })
   }
   handleSubmitLinkClick = (evt) => {
     evt.preventDefault()
@@ -26,14 +27,19 @@ class Form extends React.Component {
     onSubmit(this.state)
   }
 
+  // markup
   render () {
-    const { env, puzzle } = this.state
+    const { env, part } = this.state
 
     return (
       <section className="form">
+        <p>
+          Use this form to show the corresponding result
+          in the content section below.
+        </p>
         <div className="form__field">
           <label className="form__label">
-            Puzzle
+            Puzzle Part
           </label>
           <label className="form__label form__label--radio">
             <input
@@ -41,10 +47,10 @@ class Form extends React.Component {
               type="radio"
               name="puzzle"
               value="1"
-              checked={ puzzle === "1" }
-              onChange={ this.handlePuzzleChange }
+              checked={ part === "1" }
+              onChange={ this.handlePuzzlePartChange }
             />
-            First
+            One
           </label>
           <label className="form__label form__label--radio">
             <input
@@ -52,10 +58,10 @@ class Form extends React.Component {
               type="radio"
               name="puzzle"
               value="2"
-              checked={ puzzle === "2" }
-              onChange={ this.handlePuzzleChange }
+              checked={ part === "2" }
+              onChange={ this.handlePuzzlePartChange }
             />
-            Second
+            Two
           </label>
         </div>
         <div className="form__field">

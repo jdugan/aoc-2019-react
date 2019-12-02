@@ -3,28 +3,31 @@ import Description from './components/organisms/Description'
 import Form from './components/organisms/Form'
 import Header from './components/organisms/Header'
 import Nav from './components/organisms/Nav'
+import Result from './components/organisms/Result'
 import './App.css';
 
 class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      day:    "1",
-      env:    "test",
-      puzzle: "1"
+      day:  "1",
+      env:  "test",
+      part: "1"
     }
   }
 
+  // event handlers
   handleFormSubmit = (payload) => {
-    const { env, puzzle } = payload
-    this.setState({ env, puzzle })
+    const { env, part } = payload
+    this.setState({ env, part })
   }
   handleNavItemClick = (day) => {
     this.setState({ day })
   }
 
+  // markup
   render () {
-    const { day } = this.state
+    const { day, env, part } = this.state
 
     return (
       <div className="app">
@@ -32,16 +35,16 @@ class App extends React.Component {
           <Header />
         </section>
         <section className="app__navigation">
-          <Nav selectedDay={ day } onClick={ this.handleNavItemClick } />
+          <Nav day={ day } onClick={ this.handleNavItemClick } />
         </section>
         <section className="app__description">
-          <Description selectedDay={ day } />
+          <Description day={ day } />
         </section>
         <section className="app__form">
-          <Form selectedDay={ day } onSubmit={ this.handleFormSubmit } />
+          <Form onSubmit={ this.handleFormSubmit } />
         </section>
         <section className="app__result">
-          Result
+          <Result day={ day } env={ env } part={ part } />
         </section>
       </div>
     );

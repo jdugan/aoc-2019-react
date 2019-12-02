@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Description = (props) => {
-  console.log("Description rendering...")
-
   return (
     <section className="description">
       <h3>

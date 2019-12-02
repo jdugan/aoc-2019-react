@@ -35,41 +35,33 @@
 .app__result {
   grid-row: 3;
   grid-column: 3;
+  padding: 1em;
   overflow-y: scroll;
-  background: #fdf6e3;
 }
 
 
 /* ========== ORGANISMS =================================== */
 
-.description__li {
-  margin-bottom: 0.3em;
-  line-height: 1.2em;
-}
 .description__p {
   margin: 0 0 0.7em;
 }
 .description__strong {
   color: #ff6;
 }
-.description__ul {
-  margin: 0.3em 0 1em;
-  padding: 0 0 0 2em;
-}
 
 .form__field {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
 }
 .form__label {
   display: block;
   margin-bottom: 0.5em;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   color: white;
 }
 .form__label--radio {
   display: inline-block;
-  width: 100px;
+  width: 5.5em;
   font-size: 1em;
   font-weight: normal;
   color: #ccc;
@@ -131,7 +123,7 @@
 .link {
   margin: 0;
   padding: 0;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   color: #0c0;
   text-decoration: none;
