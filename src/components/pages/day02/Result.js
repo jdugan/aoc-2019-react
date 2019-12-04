@@ -1,7 +1,7 @@
-import React from 'react';
-import Calculator from './helpers/Calculator'
-import prodData from './data/prod'
-import testData from './data/test'
+import React      from "react";
+import Calculator from "./helpers/Calculator"
+import prodData   from "./data/prod"
+import testData   from "./data/test"
 
 const Result = (props) => {
   const { env, part } = props

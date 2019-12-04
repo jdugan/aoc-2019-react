@@ -1,8 +1,8 @@
-// import ArrayUtil from '../../../../util/Arrays'
+import Computer from "../../../../lib/IntcodeComputer"
 
 class Calculator {
-  constructor(data) {
-    this.data = data
+  constructor(list) {
+    this.list = list
   }
 
   compute(part) {
@@ -23,7 +23,11 @@ class Calculator {
     for (let i = 0; i < 100; i++) {
       for (let j = 0; j < 100; j++) {
         console.log(`${ i }, ${ j }`)
-        if (this.runIntcodeProgram(i, j) === TARGET) {
+
+        const list = this.prepareList(i, j)
+        const computer = new Computer(list)
+
+        if (computer.run() === TARGET) {
           noun  = i
           verb  = j
           found = true
@@ -39,47 +43,17 @@ class Calculator {
   }
 
   simpleRun() {
-    return this.runIntcodeProgram()
+    const computer = new Computer(this.list)
+    return computer.run()
   }
 
   // ========== HELPERS ===================================
 
-  convertDataToHash() {
-    let hash = {}
-    this.data.forEach((val, i) => {
-      hash[i] = val
-    })
-    return hash
-  }
-
-  runIntcodeProgram(noun, verb) {
-    const program = this.convertDataToHash()
-    program[1] = (noun === undefined) ? program[1] : noun
-    program[2] = (verb === undefined) ? program[2] : verb
-
-    let count  = 0
-    let index  = 0
-    let opcode = program[index]
-
-    while ((opcode === 1 || opcode === 2) && count < 1000) {
-      count     = count + 1
-      const i1  = program[index + 1]
-      const i2  = program[index + 2]
-      const i3  = program[index + 3]
-
-      switch (opcode) {
-        case 1:
-          program[i3] = program[i1] + program[i2]
-          break
-        default:
-          program[i3] = program[i1] * program[i2]
-      }
-
-      index  = index + 4
-      opcode = program[index]
-    }
-
-    return program[0]
+  prepareList(noun, verb) {
+    const array = this.list.map(i => i)
+    array[1] = noun
+    array[2] = verb
+    return array
   }
 }
 

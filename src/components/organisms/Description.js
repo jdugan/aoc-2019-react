@@ -1,11 +1,15 @@
 import React from 'react';
 import Day1 from '../pages/day01/Description'
 import Day2 from '../pages/day02/Description'
+import Day3 from '../pages/day03/Description'
+import Day4 from '../pages/day04/Description'
 import Default from '../pages/base/Description'
 
 const componentMap = {
   "1": Day1,
   "2": Day2,
+  "3": Day3,
+  "4": Day4,
 }
 
 const Description = (props) => {

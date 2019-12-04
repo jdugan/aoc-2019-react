@@ -1,10 +1,10 @@
-import React from 'react';
-import Description from './components/organisms/Description'
-import Form from './components/organisms/Form'
-import Header from './components/organisms/Header'
-import Nav from './components/organisms/Nav'
-import Result from './components/organisms/Result'
-import './App.css';
+import React from "react";
+import Description from "./components/organisms/Description"
+import Form from "./components/organisms/Form"
+import Header from "./components/organisms/Header"
+import Nav from "./components/organisms/Nav"
+import Result from "./components/organisms/Result"
+import "./App.css";
 
 class App extends React.Component {
   constructor (props) {

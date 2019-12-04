@@ -1,8 +1,8 @@
 const data = {
   "1":  [true, true],
   "2":  [true, true],
-  "3":  [false, false],
-  "4":  [false, false],
+  "3":  [true, true],
+  "4":  [true, true],
   "5":  [false, false],
   "6":  [false, false],
   "7":  [false, false],
@@ -27,14 +27,16 @@ const data = {
 }
 
 const store = {
-  days: () => {
+  days() {
     return Object.keys(data)
   },
-  starCount: () => {
+
+  starCount() {
     const countFn = (sum, array) => sum + array.filter(bool => bool).length
     return Object.values(data).reduce(countFn, 0)
   },
-  starCountForDay: (day) => {
+
+  starCountForDay(day) {
     return (data[day] || []).filter(bool => bool).length
   }
 }
