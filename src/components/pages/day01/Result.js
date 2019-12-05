@@ -1,13 +1,13 @@
-import React from 'react';
-import Calculator from './helpers/Calculator'
+import React    from 'react';
+import Runner   from './helpers/Runner'
 import prodData from './data/prod'
 import testData from './data/test'
 
 const Result = (props) => {
   const { env, part } = props
-  const data = (env === 'test') ? testData : prodData
-  const calc = new Calculator(data)
-  const answer = calc.compute(part)
+  const data   = (env === 'test') ? testData : prodData
+  const runner = new Runner(data)
+  const answer = runner.compute(part)
 
   return (
     <section className="result">

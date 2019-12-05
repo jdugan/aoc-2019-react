@@ -1,6 +1,6 @@
 import ArrayUtil from '../../../../util/Arrays'
 
-class Calculator {
+class Runner {
   constructor(data) {
     this.data = data
   }
@@ -39,4 +39,4 @@ class Calculator {
   }
 }
 
-export default Calculator
+export default Runner

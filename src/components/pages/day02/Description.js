@@ -181,7 +181,7 @@ const Description = (props) => {
         example, if noun=12 and verb=2, the answer would be 1202.)
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">7749</strong>.
       </p>
     </section>
   )

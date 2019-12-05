@@ -1,6 +1,6 @@
 import Computer from "../../../../lib/IntcodeComputer"
 
-class Calculator {
+class Runner {
   constructor(list) {
     this.list = list
   }
@@ -22,12 +22,14 @@ class Calculator {
 
     for (let i = 0; i < 100; i++) {
       for (let j = 0; j < 100; j++) {
-        console.log(`${ i }, ${ j }`)
-
         const list = this.prepareList(i, j)
         const computer = new Computer(list)
+        const status   = computer.run()
+        if (status !== 0) {
+          console.log(`Computer failed at index ${ i }, ${ j } with exit code ${ status }.`)
+        }
 
-        if (computer.run() === TARGET) {
+        if (computer.result === TARGET) {
           noun  = i
           verb  = j
           found = true
@@ -44,7 +46,12 @@ class Calculator {
 
   simpleRun() {
     const computer = new Computer(this.list)
-    return computer.run()
+    const status   = computer.run()
+    if (status !== 0) {
+      console.log(`Computer failed with exit code ${ status }.`)
+    }
+
+    return computer.result
   }
 
   // ========== HELPERS ===================================
@@ -57,4 +64,4 @@ class Calculator {
   }
 }
 
-export default Calculator
+export default Runner
