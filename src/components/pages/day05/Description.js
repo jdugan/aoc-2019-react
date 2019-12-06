@@ -75,21 +75,22 @@ const Description = (props) => {
         digit), 1 (thousands digit), and 0 (ten-thousands digit, not present and
         therefore zero):
       </p>
-      <p>
-        ABCDE<br/>
-        &nbsp;1002
-      </p>
-      <p>
-        DE - two-digit opcode, &nbsp; &nbsp; &nbsp;02 == opcode 2<br/>
-        &nbsp;C - mode of 1st parameter, &nbsp;0 == position mode<br/>
-        &nbsp;B - mode of 2nd parameter, &nbsp;1 == immediate mode<br/>
-        &nbsp;A - mode of 3rd parameter, &nbsp;0 == position mode,<br/>
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        &nbsp; omitted due to being a leading zero
-      </p>
+      <pre>
+        <code>
+          ABCDE<br/>
+          &nbsp;1002<br/>
+          <br/>
+          DE - two-digit opcode, &nbsp; &nbsp; &nbsp;02 == opcode 2<br/>
+          &nbsp;C - mode of 1st parameter, &nbsp;0 == position mode<br/>
+          &nbsp;B - mode of 2nd parameter, &nbsp;1 == immediate mode<br/>
+          &nbsp;A - mode of 3rd parameter, &nbsp;0 == position mode,<br/>
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          &nbsp; omitted due to being a leading zero
+        </code>
+      </pre>
       <p>
         This instruction multiplies its first two parameters. The first parameter,
         4 in position mode, works like it did before - its value is the value
@@ -230,11 +231,13 @@ const Description = (props) => {
       <p>
         Here's a larger example:
       </p>
-      <p>
-        3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,<br/>
-        1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,<br/>
-        999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99
-      </p>
+      <pre>
+        <code>
+          3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,<br/>
+          1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,<br/>
+          999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99<br/>
+        </code>
+      </pre>
       <p>
         The above example program uses an input instruction to ask for a
         single number. The program will then output 999 if the input value

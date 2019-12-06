@@ -60,12 +60,14 @@ const Description = (props) => {
         For the purposes of illustration, here is the same program split into
         multiple lines:
       </p>
-      <p>
-        1,9,10,3,<br/>
-        2,3,11,0,<br/>
-        99,<br/>
-        30,40,50<br/>
-      </p>
+      <pre>
+        <code>
+          1,9,10,3,<br/>
+          2,3,11,0,<br/>
+          99,<br/>
+          30,40,50<br/>
+        </code>
+      </pre>
       <p>
         The first four integers, 1,9,10,3, are at positions 0, 1, 2, and 3.
         Together, they represent the first opcode (1, addition), the positions
@@ -77,24 +79,28 @@ const Description = (props) => {
         position (3) is at position 3, so it overwrites itself. Afterward,
         the program looks like this:
       </p>
-      <p>
-        1,9,10,70,<br/>
-        2,3,11,0,<br/>
-        99,<br/>
-        30,40,50<br/>
-      </p>
+      <pre>
+        <code>
+          1,9,10,70,<br/>
+          2,3,11,0,<br/>
+          99,<br/>
+          30,40,50<br/>
+        </code>
+      </pre>
       <p>
         Step forward 4 positions to reach the next opcode, 2. This opcode works
         just like the previous, but it multiplies instead of adding. The inputs
         are at positions 3 and 11; these positions contain 70 and 50 respectively.
         Multiplying these produces 3500; this is stored at position 0:
       </p>
-      <p>
-        3500,9,10,70,<br/>
-        2,3,11,0,<br/>
-        99,<br/>
-        30,40,50<br/>
-      </p>
+      <pre>
+        <code>
+          3500,9,10,70,<br/>
+          2,3,11,0,<br/>
+          99,<br/>
+          30,40,50<br/>
+        </code>
+      </pre>
       <p>
         Stepping forward 4 more positions arrives at opcode 99, halting
         the program.

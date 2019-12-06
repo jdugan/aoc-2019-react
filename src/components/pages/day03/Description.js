@@ -33,32 +33,36 @@ const Description = (props) => {
         down 3:
       </p>
       <pre>
-        ...........<br/>
-        ...........<br/>
-        ...........<br/>
-        ....+----+.<br/>
-        ....|....|.<br/>
-        ....|....|.<br/>
-        ....|....|.<br/>
-        .........|.<br/>
-        .o-------+.<br/>
-        ...........<br/>
+        <code>
+          ...........<br/>
+          ...........<br/>
+          ...........<br/>
+          ....+----+.<br/>
+          ....|....|.<br/>
+          ....|....|.<br/>
+          ....|....|.<br/>
+          .........|.<br/>
+          .o-------+.<br/>
+          ...........<br/>
+        </code>
       </pre>
       <p>
         Then, if the second wire's path is U7,R6,D4,L4, it goes up 7, right 6,
         down 4, and left 4:
       </p>
       <pre>
-        ...........<br/>
-        .+-----+...<br/>
-        .|.....|...<br/>
-        .|..+--X-+.<br/>
-        .|..|..|.|.<br/>
-        .|.-X--+.|.<br/>
-        .|..|....|.<br/>
-        .|.......|.<br/>
-        .o-------+.<br/>
-        ...........<br/>
+        <code>
+          ...........<br/>
+          .+-----+...<br/>
+          .|.....|...<br/>
+          .|..+--X-+.<br/>
+          .|..|..|.|.<br/>
+          .|.-X--+.|.<br/>
+          .|..|....|.<br/>
+          .|.......|.<br/>
+          .o-------+.<br/>
+          ...........<br/>
+        </code>
       </pre>
       <p>
         These wires cross at two locations (marked X), but the lower-left one is
@@ -105,18 +109,20 @@ const Description = (props) => {
         the wire has entered to get to that location, including the intersection
         being considered. Again consider the example from above:
       </p>
-      <p>
-        ...........<br/>
-        .+-----+...<br/>
-        .|.....|...<br/>
-        .|..+--X-+.<br/>
-        .|..|..|.|.<br/>
-        .|.-X--+.|.<br/>
-        .|..|....|.<br/>
-        .|.......|.<br/>
-        .o-------+.<br/>
-        ...........<br/>
-      </p>
+      <pre>
+        <code>
+          ...........<br/>
+          .+-----+...<br/>
+          .|.....|...<br/>
+          .|..+--X-+.<br/>
+          .|..|..|.|.<br/>
+          .|.-X--+.|.<br/>
+          .|..|....|.<br/>
+          .|.......|.<br/>
+          .o-------+.<br/>
+          ...........<br/>
+        </code>
+      </pre>
       <p>
         In the above example, the intersection closest to the central port is reached
         after 8+5+5+2 = <strong>20</strong> steps by the first wire and 7+6+4+3
