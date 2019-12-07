@@ -36,7 +36,7 @@ const Description = (props) => {
         In this diagram, the object BBB is in orbit around AAA. The
         path that BBB takes around AAA (drawn with lines) is only
         partly shown. In the map data, this orbital relationship is
-        written AAA)BBB, which means "BBB is in orbit around AAA".
+        written AAA) BBB, which means "BBB is in orbit around AAA".
       </p>
       <p>
         Before you use your map data to plot a course, you need to make sure

@@ -1,8 +1,8 @@
 import Computer from "../../../../lib/IntcodeComputer"
 
 class Runner {
-  constructor(list) {
-    this.list = list
+  constructor(program) {
+    this.program = program
   }
 
   compute(part) {
@@ -22,14 +22,14 @@ class Runner {
 
     for (let i = 0; i < 100; i++) {
       for (let j = 0; j < 100; j++) {
-        const list = this.prepareList(i, j)
-        const computer = new Computer(list)
+        const program = this.prepareProgram(i, j)
+        const computer = new Computer(program)
         const status   = computer.run()
         if (status !== 0) {
           console.log(`Computer failed at index ${ i }, ${ j } with exit code ${ status }.`)
         }
 
-        if (computer.result === TARGET) {
+        if (computer.program[0] === TARGET) {
           noun  = i
           verb  = j
           found = true
@@ -45,22 +45,23 @@ class Runner {
   }
 
   simpleRun() {
-    const computer = new Computer(this.list)
+    const program  = [...this.program]
+    const computer = new Computer(program)
     const status   = computer.run()
     if (status !== 0) {
       console.log(`Computer failed with exit code ${ status }.`)
     }
 
-    return computer.result
+    return computer.program[0]
   }
 
   // ========== HELPERS ===================================
 
-  prepareList(noun, verb) {
-    const array = this.list.map(i => i)
-    array[1] = noun
-    array[2] = verb
-    return array
+  prepareProgram(noun, verb) {
+    const program = [...this.program]
+    program[1] = noun
+    program[2] = verb
+    return program
   }
 }
 

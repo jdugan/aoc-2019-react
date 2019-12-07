@@ -5,7 +5,7 @@ const data = {
   "4":  [true, true],
   "5":  [true, true],
   "6":  [true, true],
-  "7":  [false, false],
+  "7":  [true, true],
   "8":  [false, false],
   "9":  [false, false],
   "10": [false, false],

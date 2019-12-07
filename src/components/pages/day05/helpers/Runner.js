@@ -1,8 +1,8 @@
 import Computer from "../../../../lib/IntcodeComputer"
 
 class Runner {
-  constructor(list) {
-    this.list = list
+  constructor(program) {
+    this.program = program
   }
 
   compute(part) {
@@ -14,14 +14,20 @@ class Runner {
 
   // ========== RUNNERS ===================================
 
-  simpleRun(input) {
-    const computer = new Computer(this.list)
-    const status   = computer.run(input)
-    if (status !== 0) {
-      console.log(`Computer failed with exit code ${ status }.`)
+  simpleRun(initValue) {
+    const program  = [...this.program]
+    const computer = new Computer(program)
+    const input    = [initValue]
+    let   status
+
+    while (!computer.halted) {
+      status = computer.run(input)
+      if (status !== 0) {
+        console.log(`Computer failed with exit code ${ status }.`)
+      }
     }
 
-    return computer.output.pop()
+    return computer.output
   }
 
 

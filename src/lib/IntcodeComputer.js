@@ -1,79 +1,80 @@
 class IntcodeComputer {
-  constructor(program = []) {
-    this.program = program
-    this.output  = []
-    this.result  = 0
+  constructor(program = [], pausable = false) {
+    this.program  = program
+    this.pausable = pausable
+
+    this.pointer  = 0
+    this.output   = 0
+    this.paused   = false
+    this.halted   = false
   }
 
-  run(input) {
-    this.output = []
-    this.result = 0
+  run(input = []) {
+    if (!this.halted) {
+      if (!this.paused) {
+        this.pointer = 0
+      }
+      this.paused = false
 
-    const program  = this.program.map(i => i)
-    const maxCount = program.length
-    let   halted   = false
-    let   count    = 0
-    let   pointer  = 0
+      while (!this.paused && !this.halted && this.pointer < this.program.length) {
+        const operator     = this.program[this.pointer].toString()
+        const instruction  = this.buildInstruction(operator)
+        const opcode       = instruction.opcode
+        const operands     = [...instruction.operands]
+        const writeAddress = instruction.writeAddress
 
-    while (!halted && count < maxCount) {
-      count = count + 1
-
-      const operator     = program[pointer].toString()
-      const instruction  = this.buildInstruction(program, operator, pointer)
-      const opcode       = instruction.opcode
-      const operands     = instruction.operands
-      const writeAddress = instruction.writeAddress
-
-      switch (opcode) {
-        case 'add':
-          program[writeAddress] = operands.reduce((sum, i) => sum = sum + i, 0)
-          pointer += 4
-          break
-        case 'multiply':
-          program[writeAddress] = operands.reduce((product, i) => product = product * i, 1)
-          pointer += 4
-          break
-        case 'input':
-          program[writeAddress] = input
-          pointer += 2
-          break
-        case 'output':
-          this.output.push(operands[0])
-          pointer += 2
-          break
-        case 'jump-true':
-          pointer = (operands[0] !== 0) ? operands[1] : pointer + 3
-          break
-        case 'jump-false':
-          pointer = (operands[0] === 0) ? operands[1] : pointer + 3
-          break
-        case 'less-than':
-          program[writeAddress] = (operands[0] < operands[1]) ? 1 : 0
-          pointer += 4
-          break
-        case 'equals':
-          program[writeAddress] = (operands[0] === operands[1]) ? 1 : 0
-          pointer += 4
-          break
-        case 'halt':
-          halted = true
-          break
-        default:
-          console.log(program)
-          console.log(pointer)
-          console.log(opcode)
-          return 1
+        switch (opcode) {
+          case 'add':
+            this.program[writeAddress] = operands.reduce((sum, i) => sum = sum + i, 0)
+            this.pointer += 4
+            break
+          case 'multiply':
+            this.program[writeAddress] = operands.reduce((product, i) => product = product * i, 1)
+            this.pointer += 4
+            break
+          case 'input':
+            this.program[writeAddress] = input.shift()
+            this.pointer += 2
+            break
+          case 'output':
+            this.output   = operands[0]
+            this.pointer += 2
+            if (this.pausable) {
+              this.paused = true
+            }
+            break
+          case 'jump-true':
+            this.pointer = (operands[0] !== 0) ? operands[1] : this.pointer + 3
+            break
+          case 'jump-false':
+            this.pointer = (operands[0] === 0) ? operands[1] : this.pointer + 3
+            break
+          case 'less-than':
+            this.program[writeAddress] = (operands[0] < operands[1]) ? 1 : 0
+            this.pointer += 4
+            break
+          case 'equals':
+            this.program[writeAddress] = (operands[0] === operands[1]) ? 1 : 0
+            this.pointer += 4
+            break
+          case 'halt':
+            this.halted = true
+            break
+          default:
+            console.log(this.program)
+            console.log(this.pointer)
+            console.log(opcode)
+            return 1
+        }
       }
     }
-
-    this.result = program[0]
 
     return 0
   }
 
   // ========== HELPERS ===================================
 
-  buildInstruction(program, operator, pointer) {
+  buildInstruction(operator) {
     const opArray  = operator.split('').map(i => parseInt(i)).reverse()
     const opCode   = parseInt(opArray.slice(0, 2).reverse().join(''))
     const opConfig = this.getConfig().opcodes[opCode]
@@ -84,9 +85,9 @@ class IntcodeComputer {
 
     const opcode = opConfig.method
 
-    const operandStart = pointer + 1
+    const operandStart = this.pointer + 1
     const operandEnd   = operandStart + opConfig.operands
-    const operandAddrs = program.slice(operandStart, operandEnd)
+    const operandAddrs = this.program.slice(operandStart, operandEnd)
     const operandModes = opArray.slice(2, 2 + opConfig.operands)
     const operands     = operandAddrs.map((pv, i) => {
       const mode = operandModes[i] || 0
@@ -97,14 +98,14 @@ class IntcodeComputer {
           break
         default:
           if (pv < 0) {
-            pv = program.length - pv
+            pv = this.program.length - pv
           }
-          val = program[pv]
+          val = this.program[pv]
       }
       return val
     })
 
-    const writeAddress = program[pointer + operands.length + 1]
+    const writeAddress = this.program[this.pointer + operands.length + 1]
 
     return {
       opcode:       opcode,
