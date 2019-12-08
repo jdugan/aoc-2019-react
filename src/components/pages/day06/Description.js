@@ -180,7 +180,7 @@ const Description = (props) => {
         orbiting - not between YOU and SAN.)
       </p>
       <p>
-        Your puzzle answer was <strong className="green">???</strong>.
+        Your puzzle answer was <strong className="green">445</strong>.
       </p>
     </section>
   )
