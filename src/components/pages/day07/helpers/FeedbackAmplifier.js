@@ -17,7 +17,7 @@ class FeedbackAmplifier {
 
     this.phase = null
 
-    return [this.computer.output, this.computer.halted]
+    return [this.computer.output.pop(), this.computer.halted]
   }
 }
 

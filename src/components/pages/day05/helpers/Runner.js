@@ -27,7 +27,7 @@ class Runner {
       }
     }
 
-    return computer.output
+    return computer.output.pop()
   }
 
 

@@ -15,7 +15,7 @@ class BasicAmplifier {
       console.log(`Computer failed with exit code ${ status }.`)
     }
 
-    return [computer.output, computer.halted]
+    return [computer.output.pop(), computer.halted]
   }
 }
 

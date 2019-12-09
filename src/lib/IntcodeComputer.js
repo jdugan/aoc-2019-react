@@ -3,10 +3,28 @@ class IntcodeComputer {
     this.program  = program
     this.pausable = pausable
 
-    this.pointer  = 0
-    this.output   = 0
-    this.paused   = false
-    this.halted   = false
+    this.modes = {
+      0:  { in: 'renderPositionInMode',  out: 'renderPositionOutMode'  },
+      1:  { in: 'renderImmediateInMode', out: 'renderImmediateOutMode' },
+      2:  { in: 'renderRelativeInMode',  out: 'renderRelativeOutMode'  },
+    }
+    this.opcodes = {
+      1:  { method: 'performAdd',       operands: ["in", "in", "out"] },
+      2:  { method: 'performMultiply',  operands: ["in", "in", "out"] },
+      3:  { method: 'performInput',     operands: ["out"]             },
+      4:  { method: 'performOutput',    operands: ["in"]              },
+      5:  { method: 'performJumpTrue',  operands: ["in", "in"]        },
+      6:  { method: 'performJumpFalse', operands: ["in", "in"]        },
+      7:  { method: 'performLessThan',  operands: ["in", "in", "out"] },
+      8:  { method: 'performEquals',    operands: ["in", "in", "out"] },
+      9:  { method: 'performRelative',  operands: ["in"]              },
+      99: { method: 'performHalt',      operands: []                  },
+    }
+
+    this.pointer      = 0
+    this.relativeBase = 0
+    this.paused       = false
+    this.halted       = false
   }
 
   run(input = []) {
@@ -14,58 +32,18 @@ class IntcodeComputer {
       if (!this.paused) {
         this.pointer = 0
       }
+      this.output = []
       this.paused = false
 
       while (!this.paused && !this.halted && this.pointer < this.program.length) {
         const operator     = this.program[this.pointer].toString()
         const instruction  = this.buildInstruction(operator)
-        const opcode       = instruction.opcode
-        const operands     = [...instruction.operands]
-        const writeAddress = instruction.writeAddress
 
-        switch (opcode) {
-          case 'add':
-            this.program[writeAddress] = operands.reduce((sum, i) => sum = sum + i, 0)
-            this.pointer += 4
-            break
-          case 'multiply':
-            this.program[writeAddress] = operands.reduce((product, i) => product = product * i, 1)
-            this.pointer += 4
-            break
-          case 'input':
-            this.program[writeAddress] = input.shift()
-            this.pointer += 2
-            break
-          case 'output':
-            this.output   = operands[0]
-            this.pointer += 2
-            if (this.pausable) {
-              this.paused = true
-            }
-            break
-          case 'jump-true':
-            this.pointer = (operands[0] !== 0) ? operands[1] : this.pointer + 3
-            break
-          case 'jump-false':
-            this.pointer = (operands[0] === 0) ? operands[1] : this.pointer + 3
-            break
-          case 'less-than':
-            this.program[writeAddress] = (operands[0] < operands[1]) ? 1 : 0
-            this.pointer += 4
-            break
-          case 'equals':
-            this.program[writeAddress] = (operands[0] === operands[1]) ? 1 : 0
-            this.pointer += 4
-            break
-          case 'halt':
-            this.halted = true
-            break
-          default:
-            console.log(this.program)
-            console.log(this.pointer)
-            console.log(opcode)
-            return 1
-        }
+        const method       = instruction.method
+        const operands     = instruction.operands
+
+        const offset  = this[method](operands, input)
+        this.pointer += offset
       }
     }
 
@@ -77,57 +55,118 @@ class IntcodeComputer {
   buildInstruction(operator) {
     const opArray  = operator.split('').map(i => parseInt(i)).reverse()
     const opCode   = parseInt(opArray.slice(0, 2).reverse().join(''))
-    const opConfig = this.getConfig().opcodes[opCode]
+    const opConfig = this.opcodes[opCode]
 
     if (!opConfig) {
       return {}
     }
 
-    const opcode = opConfig.method
+    const method = opConfig.method
 
+    const operandLen   = opConfig.operands.length
     const operandStart = this.pointer + 1
-    const operandEnd   = operandStart + opConfig.operands
+    const operandEnd   = operandStart + operandLen
     const operandAddrs = this.program.slice(operandStart, operandEnd)
-    const operandModes = opArray.slice(2, 2 + opConfig.operands)
-    const operands     = operandAddrs.map((pv, i) => {
-      const mode = operandModes[i] || 0
-      let   val
-      switch (mode) {
-        case 1:
-          val = pv
-          break
-        default:
-          if (pv < 0) {
-            pv = this.program.length - pv
-          }
-          val = this.program[pv]
-      }
-      return val
+    const operandModes = opArray.slice(2, 2 + operandLen)
+    const operands     = opConfig.operands.map((type, i) => {
+      const mode    = operandModes[i] || 0
+      const param   = operandAddrs[i]
+      const method  = (this.modes[mode] || {})[type] || "renderPositionInMode"
+      return this[method](param)
     })
 
-    const writeAddress = this.program[this.pointer + operands.length + 1]
-
     return {
-      opcode:       opcode,
-      operands:     operands,
-      writeAddress: writeAddress
+      method:   method,
+      operands: operands,
     }
   }
 
-  getConfig() {
-    return {
-      opcodes: {
-         1: { method: 'add',        operands: 2 },
-         2: { method: 'multiply',   operands: 2 },
-         3: { method: 'input',      operands: 0 },
-         4: { method: 'output',     operands: 1 },
-         5: { method: 'jump-true',  operands: 2 },
-         6: { method: 'jump-false', operands: 2 },
-         7: { method: 'less-than',  operands: 2 },
-         8: { method: 'equals',     operands: 2 },
-        99: { method: 'halt',       operands: 0 },
-      }
+  // ========== MODES =====================================
+
+  renderImmediateInMode(value) {
+    return value
+  }
+  renderImmediateOutMode(value) {
+    console.log("ERROR => Invalid parameter mode called")
+    return value
+  }
+
+  renderPositionInMode(value) {
+    if (value < 0) {
+      value = this.program.length - value
     }
+    return this.program[value] || 0
+  }
+  renderPositionOutMode(value) {
+    return value
+  }
+
+  renderRelativeInMode(value) {
+    value = this.relativeBase + value
+    return this.renderPositionInMode(value)
+  }
+  renderRelativeOutMode(value) {
+    return this.relativeBase + value
+  }
+
+  // ========== OPCODES ===================================
+
+  performAdd(operands) {
+    const writeAddress = operands.pop()
+    this.program[writeAddress] = operands.reduce((sum, i) => sum = sum + i, 0)
+    return 4
+  }
+
+  performMultiply(operands) {
+    const writeAddress = operands.pop()
+    this.program[writeAddress] = operands.reduce((product, i) => product = product * i, 1)
+    return 4
+  }
+
+  performInput(operands, input) {
+    const writeAddress = operands.shift()
+    this.program[writeAddress] = input.shift()
+    return 2
+  }
+
+  performOutput(operands) {
+    this.output.push(operands.shift())
+    if (this.pausable) {
+      this.paused = true
+    }
+    return 2
+  }
+
+  performJumpTrue(operands) {
+    this.pointer = (operands[0] !== 0) ? operands[1] : this.pointer + 3
+    return 0
+  }
+
+  performJumpFalse(operands) {
+    this.pointer = (operands[0] === 0) ? operands[1] : this.pointer + 3
+    return 0
+  }
+
+  performLessThan(operands) {
+    const writeAddress = operands.pop()
+    this.program[writeAddress] = (operands[0] < operands[1]) ? 1 : 0
+    return 4
+  }
+
+  performEquals(operands) {
+    const writeAddress = operands.pop()
+    this.program[writeAddress] = (operands[0] === operands[1]) ? 1 : 0
+    return 4
+  }
+
+  performRelative(operands) {
+    this.relativeBase += operands.shift()
+    return 2
+  }
+
+  performHalt() {
+    this.halted = true
+    return 0
   }
 }
 

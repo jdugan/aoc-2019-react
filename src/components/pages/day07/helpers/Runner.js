@@ -125,7 +125,8 @@ class Runner {
     if (!halted) {
       if (iteration < 50) {
         iteration += 1
-        return this.processAmplifierLoop(amps, signal, iteration)
+        const deepSignal = this.processAmplifierLoop(amps, signal, iteration)
+        return deepSignal || signal // halt returns undefined, so use previous signal
       }
     }
     return signal
