@@ -7,40 +7,28 @@ class Robot {
     this.location  = location
     this.direction = direction
 
-    this.panels    = {}
+    this.panels = {}
   }
 
   // ========== PUBLIC ====================================
 
+  registrationTag() {
+    this.execute()
+    this.print()
+    return "see console"
+  }
   squaresPainted() {
     this.execute()
-    console.log(Object.keys(this.panels).length)
     return Object.keys(this.panels).length
   }
 
   // ========== PRIVATE ===================================
 
   execute() {
-    const commands = this.getCommands()
-    commands.forEach((cmd, index) => {
-      const [color, turn] = cmd
-      const paintMethod   = (color) ? "paintWhite" : "paintBlack"
-      const turnMethod    = (turn)  ? "turnRight"  : "turnLeft"
-
-      this[paintMethod]()
-      this[turnMethod]()
-      this.move()
-    })
-
-  }
-
-  // ========== PRIVATE ===================================
-
-  getCommands() {
-    const commands = []
     const computer = new Computer([...this.program], true)
+    const steps    = ["getMoveMethod", "getPaintMethod"]
     let   input    = [this.location.getColor()]
-    let   output   = []
+    let   count    = 0
 
     while (!computer.halted) {
       const status = computer.run(input)
@@ -48,32 +36,72 @@ class Robot {
         console.log(`Computer failed with exit code ${ status }.`)
       }
 
-      output.push(computer.output)
-      if (output.length === 2) {
-        commands.push([...output])
-        output = []
+      if (!computer.halted) {
+        count += 1
+        const cmd        = computer.output.shift()
+        const stepMethod = steps[count % 2]
+        const method     = this[stepMethod](cmd)
+        this[method]()
+
+        input = [this.location.getColor()]
       }
     }
+  }
 
-    return commands
+  print() {
+    const rows = []
+    Object.entries(this.panels).forEach(([id, p]) => {
+      const [x, y] = id.split('|').map(s => Math.abs(parseInt(s)))
+      if (rows[y] === undefined) {
+        rows[y] = []
+      }
+      rows[y][x] = p
+    })
+
+    rows.forEach(row => {
+      const filled = row.map(col => {
+        return col || new Panel(0, 0)
+      })
+      console.log(filled.map(p => p.render()).join(''))
+    })
+  }
+
+  // ========== PRIVATE ===================================
+
+  getMoveMethod(cmd) {
+    return (cmd) ? "moveRight" : "moveLeft"
+  }
+  getPaintMethod(cmd) {
+    return (cmd) ? "paintWhite" : "paintBlack"
   }
 
   move() {
     const method  = `${ this.direction }Id`
     const nextId  = this.location[method]()
-    let   panel = this.panels[nextId]
+    let   panel   = this.panels[nextId]
     if (!panel) {
-      const [x, y]  = nextId.split('|').map(s => parseInt(s))
-      panel         = new Panel(x, y)
+      const [x, y]        = nextId.split('|').map(s => parseInt(s))
+      panel               = new Panel(x, y)
     }
     this.location = panel
   }
 
+  moveLeft() {
+    this.turnLeft()
+    this.move()
+  }
+  moveRight() {
+    this.turnRight()
+    this.move()
+  }
+
   paintBlack() {
+    this.location.setColor(0)
     const id = this.location.id()
     this.panels[id] = this.location
   }
   paintWhite() {
+    this.location.setColor(1)
     const id = this.location.id()
     this.panels[id] = this.location
   }

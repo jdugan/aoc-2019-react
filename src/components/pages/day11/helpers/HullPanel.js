@@ -1,8 +1,8 @@
 import Point from "../../../../lib/GridPoint"
 
 class HullPanel extends Point {
-  constructor(x, y) {
-    super(x, y, { color: 0 })
+  constructor(x, y, color = 0) {
+    super(x, y, { color })
   }
 
   // ========== PUBLIC ====================================
@@ -15,12 +15,13 @@ class HullPanel extends Point {
   }
 
   print() {
-    const color   = this.getColor()
-    const display = (color) ? "#" : "."
+    const display = this.render()
     console.log(display)
   }
   render() {
-    return this.getColor()
+    const color   = this.getColor()
+    const display = (color) ? "#" : "."
+    return display
   }
 }
 

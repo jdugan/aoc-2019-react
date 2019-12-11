@@ -148,18 +148,34 @@ const Description = (props) => {
         on it. <strong>How many panels does it paint at least once?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">2478</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        You're not sure what it's trying to paint, but it's definitely
+        not a <strong>registration identifier</strong>. The Space Police
+        are getting impatient.
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+        Checking your external ship cameras again, you notice a white
+        panel marked "emergency hull painting robot starting panel". The
+        rest of the panels are <strong>still black</strong>, but it looks
+        like the robot was expecting to <strong>start on a white
+        panel</strong>, not a black one.
+      </p>
+      <p>
+        Based on the Space Law Space Brochure that the Space Police attached
+        to one of your windows, a valid registration identifier is always <strong>eight
+        capital letters</strong>. After starting the robot on a single white
+        panel instead, <strong>what registration identifier does it paint on
+        your hull?</strong>
+      </p>
+      <p>
+        Your puzzle answer was <strong className="green">HCZRUGAZ</strong>.
+      </p>
     </section>
   )
 }
