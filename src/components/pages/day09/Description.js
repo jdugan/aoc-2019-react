@@ -118,7 +118,7 @@ const Description = (props) => {
         --- Part Two ---
       </h3>
       <p>
-        <strong>You now have a complete Intcode computer.</strong>
+        <strong className="gold">You now have a complete Intcode computer.</strong>
       </p>
       <p>
         Finally, you can lock on to the Ceres distress signal! You just need
@@ -136,7 +136,7 @@ const Description = (props) => {
         of the distress signal?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">75202</strong>.
       </p>
     </section>
   )

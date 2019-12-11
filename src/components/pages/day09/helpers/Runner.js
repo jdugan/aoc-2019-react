@@ -21,9 +21,7 @@ class Runner {
       console.log(`Computer failed with exit code ${ status }.`)
     }
 
-    console.log(computer.output)
-
-    return computer.output
+    return computer.output.pop()
   }
 }
 export default Runner

@@ -8,7 +8,7 @@ const data = {
   "7":  [true, true],
   "8":  [true, true],
   "9":  [true, true],
-  "10": [false, false],
+  "10": [true, true],
   "11": [false, false],
   "12": [false, false],
   "13": [false, false],

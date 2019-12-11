@@ -8,6 +8,32 @@ const Arrays = {
     return str.match(regex)
   },
 
+  toCrossProduct(c1, c2) {
+    let result = []
+    c1.forEach(i1 => {
+      c2.forEach(i2 => {
+        result.push([i1, i2])
+      })
+    })
+    return result
+  },
+
+  toPermutations(collection) {
+    const results = []
+    if (collection.length === 1) {
+      results.push(collection)
+      return results
+    }
+    collection.forEach((item, i) => {
+      const rest  = collection.slice(0, i).concat(collection.slice(i + 1))
+      const perms = Arrays.toPermutations(rest)
+      perms.forEach(p => {
+        results.push([item].concat(p))
+      })
+    })
+    return results
+  },
+
   toHash(array) {
     let hash = {}
     array.forEach((val, i) => {

@@ -11,6 +11,9 @@ class GridPoint {
   id() {
     return `${ this.x }|${ this.y }`
   }
+  sortId() {
+    return `${ this.y }|${ this.x }`
+  }
 
   // ids (map)
   eastId() {
