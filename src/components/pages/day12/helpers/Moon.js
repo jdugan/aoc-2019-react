@@ -10,6 +10,10 @@ class Moon {
 
   // ========== PUBLIC ====================================
 
+  isAtRest() {
+    return this.vx === 0 && this.vy === 0 && this.vz ===0
+  }
+
   printEnergy() {
     console.log(this.renderEnergy())
   }
@@ -21,6 +25,17 @@ class Moon {
       this.renderTotalEnergy()
     ]
     return texts.join(" ")
+  }
+
+  renderStateKey() {
+    const keys = [this.x, this.y, this.z, this.vx, this.vy, this.vz]
+    return keys.join(',')
+  }
+
+  updatePosition() {
+    this.x += this.vx
+    this.y += this.vy
+    this.z += this.vz
   }
 
   // ========== PRIVATE ===================================
@@ -55,6 +70,10 @@ class Moon {
   }
   renderTotalEnergy() {
     return `total: ${ this.calculatePotentialEnergy() } * ${ this.calculateKineticEnergy() } = ${ this.calculateTotalEnergy() }`
+  }
+
+  renderState() {
+    return `pos=<x=${ this.x }, y=${ this.y }, z=${ this.z }>, vel=<x=${ this.vx }, y=${ this.vy }, z=${ this.vz }>`
   }
 }
 
