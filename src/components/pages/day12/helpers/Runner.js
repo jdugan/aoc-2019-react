@@ -22,13 +22,12 @@ class Runner {
     let   steps  = 0
     let   key    = this.renderStateKey()
     console.log(key)
-    while (!states.has(key) && steps < 5000000) {
+    while (!states.has(key) && steps < 250) {
       states.add(key)
       this.applyNewton()
       key = this.renderStateKey()
       steps += 1
-      if (steps % 100000 === 0) { console.log(steps) }
-      if (this.allMoonsAtRest()) { console.log(key) }
+      console.log(this.moons[0].vx)
     }
     return steps
   }
