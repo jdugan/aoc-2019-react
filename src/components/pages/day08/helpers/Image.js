@@ -1,4 +1,4 @@
-import ArrayUtil from "../../../../util/Arrays"
+import StringUtil from "../../../../util/Strings"
 import Layer     from "./Layer"
 
 class Image {
@@ -41,7 +41,7 @@ class Image {
   // ========== PRIVATE ===================================
 
   buildLayers(width, height, data) {
-    const chunks = ArrayUtil.toChunks(data, width * height)
+    const chunks = StringUtil.toChunks(data, width * height)
     const layers = chunks.map(chunk => new Layer(width, height, chunk))
     return layers
   }

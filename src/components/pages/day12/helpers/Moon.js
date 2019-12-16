@@ -1,5 +1,16 @@
+import ArrayUtil from "../../../../util/Arrays"
+
 class Moon {
   constructor(x, y, z, vx = 0, vy = 0, vz = 0) {
+    this.origin = {
+      x: x,
+      y: y,
+      z: z,
+      vx: vx,
+      vy: vy,
+      vz: vz
+    }
+
     this.x  = x
     this.y  = y
     this.z  = z
@@ -8,49 +19,54 @@ class Moon {
     this.vz = vz
   }
 
-  // ========== PUBLIC ====================================
+  // ========== GETTERS/SETTERS ===========================
 
-  isAtRest() {
-    return this.vx === 0 && this.vy === 0 && this.vz ===0
+  getPositions() {
+    return [this.x, this.y, this.z]
   }
-
-  printEnergy() {
-    console.log(this.renderEnergy())
+  getVelocities() {
+    return [this.vx, this.vy, this.vz]
   }
-
-  renderEnergy() {
-    const texts = [
-      this.renderPotentialEnergy(),
-      this.renderKineticEnergy(),
-      this.renderTotalEnergy()
-    ]
-    return texts.join(" ")
-  }
-
-  renderStateKey() {
-    const keys = [this.x, this.y, this.z, this.vx, this.vy, this.vz]
-    return keys.join(',')
+  getValues() {
+    return this.getPositions().concat(this.getVelocities())
   }
 
   updatePosition() {
+    this.updatePositionX()
+    this.updatePositionY()
+    this.updatePositionZ()
+  }
+  updatePositionX() {
     this.x += this.vx
+  }
+  updatePositionY() {
     this.y += this.vy
+  }
+  updatePositionZ() {
     this.z += this.vz
   }
 
-  // ========== PRIVATE ===================================
+  // ========== STATE =====================================
+
+  isAtOriginX() {
+    return this.x === this.origin.x && this.vx === this.origin.vx
+  }
+  isAtOriginY() {
+    return this.y === this.origin.y && this.vy === this.origin.vy
+  }
+  isAtOriginZ() {
+    return this.z === this.origin.z && this.vz === this.origin.vz
+  }
+
+  // ========== CALCULATIONS ==============================
 
   calculateKineticEnergy() {
-    const ax = Math.abs(this.vx)
-    const ay = Math.abs(this.vy)
-    const az = Math.abs(this.vz)
-    return ax + ay +az
+    const values = this.normaliseValues(this.getVelocities())
+    return ArrayUtil.sum(values)
   }
   calculatePotentialEnergy() {
-    const ax = Math.abs(this.x)
-    const ay = Math.abs(this.y)
-    const az = Math.abs(this.z)
-    return ax + ay +az
+    const values = this.normaliseValues(this.getPositions())
+    return ArrayUtil.sum(values)
   }
   calculateTotalEnergy() {
     return this.calculatePotentialEnergy() * this.calculateKineticEnergy()
@@ -60,6 +76,14 @@ class Moon {
     return values.map(i => Math.abs(i))
   }
 
+  // ========== RENDERING =================================
+
+  renderEnergy() {
+    const pe = this.renderPotentialEnergy()
+    const ke = this.renderKineticEnergy()
+    const te = this.renderTotalEnergy()
+    return [pe, ke, te].join(" ")
+  }
   renderKineticEnergy() {
     const values = this.normaliseValues([this.vx, this.vy, this.vz])
     return `kin: ${ values[0] } + ${ values[1] } + ${ values[2] } = ${ this.calculateKineticEnergy() }`
@@ -70,10 +94,6 @@ class Moon {
   }
   renderTotalEnergy() {
     return `total: ${ this.calculatePotentialEnergy() } * ${ this.calculateKineticEnergy() } = ${ this.calculateTotalEnergy() }`
-  }
-
-  renderState() {
-    return `pos=<x=${ this.x }, y=${ this.y }, z=${ this.z }>, vel=<x=${ this.vx }, y=${ this.vy }, z=${ this.vz }>`
   }
 }
 

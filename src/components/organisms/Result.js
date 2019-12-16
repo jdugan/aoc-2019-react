@@ -13,6 +13,8 @@ import Day11    from '../pages/day11/Result'
 import Day12    from '../pages/day12/Result'
 import Day13    from '../pages/day13/Result'
 import Day14    from '../pages/day14/Result'
+import Day15    from '../pages/day15/Result'
+import Day16    from '../pages/day16/Result'
 import Default  from '../pages/base/Result'
 
 const componentMap = {
@@ -30,6 +32,8 @@ const componentMap = {
   "12": Day12,
   "13": Day13,
   "14": Day14,
+  "15": Day15,
+  "16": Day16,
 }
 
 const Result = (props) => {

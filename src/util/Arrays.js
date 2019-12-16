@@ -1,12 +1,17 @@
 const Arrays = {
-  sum(array) {
-    return array.reduce((sum, item) => sum += item, 0)
+
+  // ========== ARITHMETIC ================================
+
+  product(array) {
+    return array.reduce((product, item) => product = product * item, 1)
   },
 
-  toChunks(str, size) {
-    const regex = new RegExp(`.{1,${ size }}`, 'g')
-    return str.match(regex)
+  sum(array) {
+    return array.reduce((sum, item) => sum = sum + item, 0)
   },
+
+
+  // ========== TRANSFORMATIONS ===========================
 
   toCrossProduct(c1, c2) {
     let result = []
@@ -16,6 +21,14 @@ const Arrays = {
       })
     })
     return result
+  },
+
+  toHash(array) {
+    let hash = {}
+    array.forEach((val, i) => {
+      hash[i] = val
+    })
+    return hash
   },
 
   toPermutations(collection) {
@@ -32,14 +45,6 @@ const Arrays = {
       })
     })
     return results
-  },
-
-  toHash(array) {
-    let hash = {}
-    array.forEach((val, i) => {
-      hash[i] = val
-    })
-    return hash
   }
 }
 

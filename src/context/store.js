@@ -10,7 +10,7 @@ const data = {
   "9":  [true, true],
   "10": [true, true],
   "11": [true, true],
-  "12": [true, false],
+  "12": [true, true],
   "13": [true, false],
   "14": [true, true],
   "15": [false, false],

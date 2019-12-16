@@ -14,6 +14,12 @@ const Integers = {
       i1  = tmp;
     }
     return i1;
+  },
+
+  lowestCommonMultiple(i1, i2) {
+    const num = i1 * i2
+    const dem = Integers.greatestCommonDivisor(i1, i2)
+    return num / dem
   }
 }
 
