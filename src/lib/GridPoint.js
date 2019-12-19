@@ -22,8 +22,20 @@ class GridPoint {
   northId() {
     return `${ this.x }|${ this.y + 1 }`
   }
+  northEastId() {
+    return `${ this.x + 1 }|${ this.y + 1 }`
+  }
+  northWestId() {
+    return `${ this.x - 1 }|${ this.y + 1 }`
+  }
   southId() {
     return `${ this.x }|${ this.y - 1 }`
+  }
+  southEastId() {
+    return `${ this.x + 1 }|${ this.y - 1 }`
+  }
+  southWestId() {
+    return `${ this.x - 1 }|${ this.y - 1 }`
   }
   westId() {
     return `${ this.x - 1 }|${ this.y }`
@@ -37,6 +49,13 @@ class GridPoint {
     const dy = Math.abs(this.y - y1)
     return dx + dy
   }
+
+  // ========== RENDERING =================================
+
+  render() {
+    return ' '
+  }
+
 }
 
 export default GridPoint

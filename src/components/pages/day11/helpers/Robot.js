@@ -1,4 +1,5 @@
 import Computer from "../../../../lib/IntcodeComputer"
+import Printer  from "../../../../lib/GridPrinter"
 import Panel    from "./HullPanel"
 
 class Robot {
@@ -17,6 +18,7 @@ class Robot {
     this.print()
     return "see console"
   }
+
   squaresPainted() {
     this.execute()
     return Object.keys(this.panels).length
@@ -49,21 +51,8 @@ class Robot {
   }
 
   print() {
-    const rows = []
-    Object.entries(this.panels).forEach(([id, p]) => {
-      const [x, y] = id.split('|').map(s => Math.abs(parseInt(s)))
-      if (rows[y] === undefined) {
-        rows[y] = []
-      }
-      rows[y][x] = p
-    })
-
-    rows.forEach(row => {
-      const filled = row.map(col => {
-        return col || new Panel(0, 0)
-      })
-      console.log(filled.map(p => p.render()).join(''))
-    })
+    const printer = new Printer(this.panels, new Panel(), true)
+    printer.print()
   }
 
   // ========== PRIVATE ===================================

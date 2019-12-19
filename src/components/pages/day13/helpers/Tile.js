@@ -1,7 +1,7 @@
 import Point from "../../../../lib/GridPoint"
 
 class Tile extends Point {
-  constructor(x, y, type) {
+  constructor(x, y, type = 0) {
     super(x, y)
 
     this.type    = type
@@ -16,12 +16,31 @@ class Tile extends Point {
 
   // ========== PUBLIC ====================================
 
+  // actions
+  destroy() {
+    this.type = 0
+  }
+  render() {
+    return this.visuals[this.type]
+  }
+
+  // states (behaviours)
+  isReflecting() {
+    this.isWall() || this.isBlock() || this.isPaddle()
+  }
+
+  // states (types)
+  isBall() {
+    return this.type === 4
+  }
   isBlock() {
     return this.type === 2
   }
-
-  render() {
-    return this.visuals[this.type]
+  isPaddle() {
+    return this.type === 3
+  }
+  isWall() {
+    return this.type === 1
   }
 }
 

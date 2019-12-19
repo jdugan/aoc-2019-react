@@ -20,7 +20,7 @@ class HullPanel extends Point {
   }
   render() {
     const color   = this.getColor()
-    const display = (color) ? "#" : "."
+    const display = (color) ? "#" : " "
     return display
   }
 }
