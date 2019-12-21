@@ -41,6 +41,11 @@ class GridPoint {
     return `${ this.x - 1 }|${ this.y }`
   }
 
+  // ids (helpers)
+  idForDirection(dir) {
+    return this[`${ dir }Id`]()
+  }
+
   // ========== CALCULATIONS ==============================
 
   // distances

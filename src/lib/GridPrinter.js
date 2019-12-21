@@ -20,13 +20,13 @@ class GridPrinter {
         point = this.grid[`${ x }|${ y }`] || this.missing
         row.push(point.render())
       }
-      rows.push(row.join(''))
+      rows.push(`${ this.getRowId(y) }:     ${ row.join('') }`)
     }
 
     if (this.invertY) {
       rows = rows.reverse()
     }
-    
+
     rows.forEach(row => console.log(row))
   }
 
@@ -52,6 +52,10 @@ class GridPrinter {
     const rangeY = [y0, y1]
 
     return { rangeX, rangeY }
+  }
+
+  getRowId(y) {
+    return `     ${ y }`.slice(-3)
   }
 }
 
