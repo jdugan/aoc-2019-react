@@ -17,8 +17,7 @@ class Runner {
   shortestPath() {
     const maze = new Maze(this.data)
     const path = maze.shortestPath('AA', 'ZZ')
-    path.shift()
-    return path.length
+    return path.length - 1
   }
 }
 export default Runner

@@ -1,6 +1,6 @@
 import Graph   from "node-dijkstra"
-import Point   from "./MazePoint"
-// import Printer from "../../../../lib/GridPrinter"
+import Point   from "./Point"
+import Printer from "../../../../lib/GridPrinter"
 
 class Maze {
   constructor(data) {
@@ -129,6 +129,11 @@ class Maze {
       })
     }
     return output
+  }
+
+  print() {
+    const printer = new Printer(this.grid)
+    printer.print()
   }
 }
 

@@ -1,20 +1,23 @@
 import GridPoint from "../../../../lib/GridPoint"
 
-class MazePoint extends GridPoint {
+class Point extends GridPoint {
   constructor(x, y, visual) {
     super(x, y)
     this.setType(this.getTypeForVisual(visual))
   }
 
-  // ========== GETTERS/SETTERS ===========================
+  // ========== DIRECTIONS ================================
 
-  // name
-  getName() {
-    return this.meta.name
+  getDirections() {
+    return [
+      "east",
+      "north",
+      "south",
+      "west",
+    ]
   }
-  setName(name) {
-    this.meta.name = name
-  }
+
+  // ========== GETTERS/SETTERS ===========================
 
   // type
   getType() {
@@ -27,22 +30,23 @@ class MazePoint extends GridPoint {
   // visual
   getTypeForVisual(visual) {
     const map = {
-      ' ': 0,
-      '.': 1,
-      '#': 2
+      'S': 1,
+      '.': 2,
+      '#': 3,
+      'O': 4,
+      ' ': 5
     }
-    return map[visual] || -1
+    return map[visual] || 5
   }
   getVisualForType(type) {
     const map = {
-      0: ' ',
-      1: '.',
-      2: '#'
+      1: 'S',
+      2: '.',
+      3: '#',
+      4: 'O',
+      5: ' '
     }
-    let visual = map[type] || ' '
-    if (this.getName()) {
-      visual = 'P'
-    }
+    let visual = map[type] || '#'
     return visual
   }
 
@@ -55,18 +59,19 @@ class MazePoint extends GridPoint {
 
   // ========== STATE =====================================
 
-  isLetter() {
-    return this.getType() === -1
+  // types
+  isFinish() {
+    return this.getType() === 4
   }
   isPath() {
+    return this.getType() === 2
+  }
+  isStart() {
     return this.getType() === 1
   }
-  isPortal() {
-    return this.getType() === 1 && this.getName()
-  }
   isWall() {
-    return this.getType() === 2
+    return this.getType() === 3
   }
 }
 
-export default MazePoint
+export default Point

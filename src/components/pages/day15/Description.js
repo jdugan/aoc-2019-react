@@ -146,18 +146,97 @@ const Description = (props) => {
         oxygen system?
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">282</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        You quickly repair the oxygen system; oxygen gradually fills the area.
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+        Oxygen starts in the location containing the repaired oxygen system. It
+        takes <strong>one minute</strong> for oxygen to spread to all open locations
+        that are adjacent to a location that already contains oxygen. Diagonal
+        locations are <strong>not</strong> adjacent.
+      </p>
+      <p>
+        In the example above, suppose you've used the droid to explore the area
+        fully and have the following map (where locations that currently contain
+        oxygen are marked O):
+      </p>
+      <pre>
+        <code>
+          &nbsp;##<br/>
+          #..##<br/>
+          #.#..#<br/>
+          #.O.#<br/>
+          &nbsp;###<br/>
+        </code>
+      </pre>
+      <p>
+        Initially, the only location which contains oxygen is the location of the
+        repaired oxygen system. However, after one minute, the oxygen spreads to
+        all open (.) locations that are adjacent to a location containing oxygen:
+      </p>
+      <pre>
+        <code>
+          &nbsp;##<br/>
+          #..##<br/>
+          #.#..#<br/>
+          #OOO#<br/>
+          &nbsp;###<br/>
+        </code>
+      </pre>
+      <p>
+        After a total of two minutes, the map looks like this:
+      </p>
+      <pre>
+        <code>
+          &nbsp;##<br/>
+          #..##<br/>
+          #O#O.#<br/>
+          #OOO#<br/>
+          &nbsp;###<br/>
+        </code>
+      </pre>
+      <p>
+        After a total of three minutes:
+      </p>
+      <pre>
+        <code>
+          &nbsp;##<br/>
+          #O.##<br/>
+          #O#OO#<br/>
+          #OOO#<br/>
+          &nbsp;###<br/>
+        </code>
+      </pre>
+      <p>
+        And finally, the whole region is full of oxygen after a total of
+        four minutes:
+      </p>
+      <pre>
+        <code>
+          &nbsp;##<br/>
+          #OO##<br/>
+          #O#OO#<br/>
+          #OOO#<br/>
+          &nbsp;###<br/>
+        </code>
+      </pre>
+      <p>
+        So, in this example, all locations contain oxygen
+        after <strong>4</strong> minutes.
+      </p>
+      <p>
+        Use the repair droid to get a complete map of the area. <strong>How
+        many minutes will it take to fill with oxygen?</strong>
+      </p>
+      <p>
+        Your puzzle answer was <strong className="green">286</strong>.
+      </p>
     </section>
   )
 }

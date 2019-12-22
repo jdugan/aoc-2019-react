@@ -42,6 +42,9 @@ class GridPoint {
   }
 
   // ids (helpers)
+  directionForId(id) {
+    return this.getDirections().find(dir => this[`${ dir }Id`]() === id)
+  }
   idForDirection(dir) {
     return this[`${ dir }Id`]()
   }
@@ -55,12 +58,26 @@ class GridPoint {
     return dx + dy
   }
 
+  // ========== DIRECTIONS ================================
+
+  getDirections() {
+    return [
+      "east",
+      "north",
+      "south",
+      "west",
+      "northEast",
+      "northWest",
+      "southEast",
+      "southWest"
+    ]
+  }
+
   // ========== RENDERING =================================
 
   render() {
     return ' '
   }
-
 }
 
 export default GridPoint

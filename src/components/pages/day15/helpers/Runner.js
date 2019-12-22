@@ -1,13 +1,29 @@
+import Droid from "./Droid"
+
 class Runner {
-  constructor(data) {
-    this.data = data
+  constructor(program) {
+    this.program = program
   }
 
   compute(part) {
     if (part === "1") {
-      return 1
+      return this.distanceToOxygen()
     }
-    return 2
+    return this.timeToFill()
+  }
+
+  // ========== RUNNERS ===================================
+
+  distanceToOxygen() {
+    const droid = new Droid([...this.program])
+    const path  = droid.pathToOxygen()
+    return path.length - 1
+  }
+
+  timeToFill() {
+    const droid = new Droid([...this.program])
+    const path  = droid.longestPathFromOxygen()
+    return path.length - 1
   }
 }
 export default Runner
