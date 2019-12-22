@@ -20,6 +20,7 @@ class Game {
 
     let   input = []
     let   args  = []
+    let   final = 0
     let   count = 0
     let   iters = 0
 
@@ -38,6 +39,7 @@ class Game {
           const cmdType  = this.getCommandType(...args)
           switch(cmdType) {
             case 'score':
+              final = args[2]
               this.print(args[2], iters)
               if (this.blockCount() === 0) {
                 computer.halted = true
@@ -57,6 +59,8 @@ class Game {
         }
       }
     }
+
+    return final
   }
 
   setup() {

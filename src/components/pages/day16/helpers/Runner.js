@@ -21,7 +21,7 @@ class Runner {
     for (let i = 0; i <= phases; i++) {
       receiver.transformBackward()
     }
-    return receiver.output.slice(0, 8).join('')
+    return parseInt(receiver.output.slice(0, 8).join(''))
   }
 
   simpleRun(phases) {
@@ -29,7 +29,7 @@ class Runner {
     for (let i = 0; i < phases; i++) {
       receiver.transformForward()
     }
-    return receiver.output.slice(0, 8).join('')
+    return parseInt(receiver.output.slice(0, 8).join(''))
   }
 
 }

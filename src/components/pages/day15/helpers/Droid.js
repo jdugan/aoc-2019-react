@@ -9,7 +9,6 @@ class Droid {
     this.grid    = {}
 
     this.traverse()
-    this.print()
   }
 
   // ========== PUBLIC ====================================
