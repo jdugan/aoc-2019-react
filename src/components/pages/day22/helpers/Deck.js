@@ -5,7 +5,11 @@ class Deck {
 
   // ========== PUBLIC ====================================
 
-  getPositionOfCard(card) {
+  getCardAt(pos) {
+    return this.cards[pos]
+  }
+  
+  getPositionFor(card) {
     return this.cards.indexOf(card)
   }
 

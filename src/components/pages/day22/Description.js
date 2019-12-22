@@ -227,15 +227,41 @@ const Description = (props) => {
         Your puzzle answer was <strong className="green">????</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        After a while, you realize your shuffling skill won't improve much
+        more with merely a single deck of cards. You ask every 3D printer
+        on the ship to make you some more cards while you check on the ship
+        repairs. While reviewing the work the droids have finished so far,
+        you think you see <strong className="green">Halley's Comet</strong> fly
+        past!
+      </p>
+      <p>
+        When you get back, you discover that the 3D printers have combined
+        their power to create for you a single, giant, brand new, <strong>factory
+        order</strong> deck of <strong>119315717514047 space cards</strong>.
+      </p>
+      <p>
+        Finally, a deck of cards worthy of shuffling!
+      </p>
+      <p>
+        You decide to apply your complete shuffle process (your puzzle input)
+        to the deck <strong>101741582076661 times in a row</strong>.
+      </p>
+      <p>
+        You'll need to be careful, though &mdash; one wrong move with this
+        many cards and you might <strong>overflow</strong> your entire ship!
+      </p>
+      <p>
+        After shuffling your new, giant, <strong>factory order</strong> deck
+        that many times, <strong>what number is on the card that ends up in
+        position 2020?</strong>
       </p>
       <p>
         Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+      </p>
     </section>
   )
 }

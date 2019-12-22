@@ -111,7 +111,7 @@ const Description = (props) => {
         for the scaffold intersections?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">7720</strong>.
       </p>
       <br />
       {/* <h3>
