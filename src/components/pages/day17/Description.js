@@ -114,7 +114,7 @@ const Description = (props) => {
         Your puzzle answer was <strong className="green">7720</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
@@ -122,7 +122,7 @@ const Description = (props) => {
       </p>
       <p>
         Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+      </p>
     </section>
   )
 }

@@ -16,9 +16,9 @@ class Runner {
 
   alignmentSum() {
     const camera = new Camera([...this.program])
-    const align  = camera.analyze()
+    const sum    = camera.analyze()
     camera.print()
-    return align
+    return sum
   }
 }
 export default Runner

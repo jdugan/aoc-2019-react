@@ -22,7 +22,7 @@ const data = {
   "21": [false, false],
   "22": [true, false],
   "23": [false, false],
-  "24": [false, false],
+  "24": [true, false],
   "25": [false, false],
 }
 
