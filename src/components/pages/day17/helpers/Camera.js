@@ -1,6 +1,7 @@
 import ArrayUtil from "../../../../util/Arrays"
 import Computer  from "../../../../lib/IntcodeComputer"
 import Printer   from "../../../../lib/GridPrinter"
+import Robot     from "./Robot"
 import Tile      from "./Tile"
 
 class Camera {
@@ -11,11 +12,23 @@ class Camera {
 
   // ========== PUBLIC ====================================
 
+  alignmentSum() {
+    const intersections = this.getIntersections()
+    const params        = intersections.map(p => p.alignmentParameter())
+    return ArrayUtil.sum(params)
+  }
+
+  print() {
+    const printer = new Printer(this.grid)
+    printer.print()
+  }
+
+  // ========== PRIVATE ===================================
+
   analyze() {
     const computer = new Computer([...this.program])
     const status   = computer.run([])     // eslint-disable-line no-unused-vars
     const output   = computer.output
-    console.log(output)
 
     let   y = 0
     let   x = 0
@@ -34,18 +47,14 @@ class Camera {
           x = x + 1
       }
     }
-
-    const intersections = this.getIntersections()
-    const params        = intersections.map(p => p.alignmentParameter())
-    return ArrayUtil.sum(params)
   }
 
-  print() {
-    const printer = new Printer(this.grid)
-    printer.print()
+  discoverPath() {
+    const tile  = Object.values(this.grid).find(t => t.isRobot())
+    const robot = new Robot(this.grid, tile, 'south')
+    const path  = robot.explore()
+    return path
   }
-
-  // ========== PRIVATE ===================================
 
   getIntersections() {
     return Object.values(this.grid).filter(p => this.isIntersection(p))

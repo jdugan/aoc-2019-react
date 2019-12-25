@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lz4": "^0.6.3",
+    "lz78": "^1.0.2",
     "node-dijkstra": "^2.5.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

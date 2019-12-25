@@ -35,15 +35,16 @@ class Tile extends GridPoint {
   isTumbling() {
     return this.getType() === 88
   }
+
   // types
+  isRobot() {
+    return [60, 62, 86, 94, 118].includes(this.getType())   // 86 = V, 118 = v (which?)
+  }
   isScaffold() {
     return this.getType() === 35
   }
   isSpace() {
     return this.getType() === 46
-  }
-  isVacuum() {
-    return [60, 62, 86, 94, 118].includes(this.getType())   // 86 = V, 118 = v (which?)
   }
 }
 

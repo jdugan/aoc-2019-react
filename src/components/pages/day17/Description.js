@@ -118,10 +118,162 @@ const Description = (props) => {
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        Now for the tricky part: notifying all the other robots about
+        the solar flare. The vacuum robot can do this automatically if
+        it gets into range of a robot. However, you can't see the other
+        robots on the camera, so you need to be thorough instead: you
+        need to make the vacuum robot <strong>visit every part of the
+        scaffold at least once.</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        The vacuum robot normally wanders randomly, but there isn't time
+        for that today. Instead, you can <strong>override its movement
+        logic</strong> with new rules.
+      </p>
+      <p>
+        Force the vacuum robot to wake up by changing the value in your
+        ASCII program at address 0 from 1 to 2. When you do this, you
+        will be automatically prompted for the new movement rules that
+        the vacuum robot should use. The ASCII program will use input
+        instructions to receive them, but they need to be provided as
+        ASCII code; end each line of logic with a single newline, ASCII
+        code 10.
+      </p>
+      <p>
+        First, you will be prompted for the <strong>main movement
+        routine</strong>. The main routine may only call the <strong>movement
+        functions</strong>: A, B, or C. Supply the movement functions
+        to use as ASCII text, separating them with commas (,, ASCII code
+        44), and ending the list with a newline (ASCII code 10). For
+        example, to call A twice, then alternate between B and C three
+        times, provide the string A,A,B,C,B,C,B,C and then a newline.
+      </p>
+      <p>
+        Then, you will be prompted for each <strong>movement function</strong>.
+        Movement functions may use L to <strong>turn left</strong>, R
+        to <strong>turn right</strong>, or a number to <strong>move
+        forward</strong> that many units. Movement functions may not
+        call other movement functions. Again, separate the actions with
+        commas and end the list with a newline. For example, to move
+        forward 10 units, turn left, move forward 8 units, turn right,
+        and finally move forward 6 units, provide the string 10,L,8,R,6
+        and then a newline.
+      </p>
+      <p>
+        Finally, you will be asked whether you want to see a <strong>continuous
+        video feed</strong>; provide either y or n and a newline. Enabling
+        the continuous video feed can help you see what's going on, but it
+        also requires a significant amount of processing power, and may even
+        cause your Intcode computer to overheat.
+      </p>
+      <p>
+        Due to the limited amount of memory in the vacuum robot, the ASCII
+        definitions of the main routine and the movement functions may each
+        contain <strong>at most 20 characters</strong>, not counting the
+        newline.
+      </p>
+      <p>
+        For example, consider the following camera feed:
+      </p>
+      <pre>
+        <code>
+          #######...#####<br/>
+          #.....#...#...#<br/>
+          #.....#...#...#<br/>
+          ......#...#...#<br/>
+          ......#...###.#<br/>
+          ......#.....#.#<br/>
+          ^########...#.#<br/>
+          ......#.#...#.#<br/>
+          ......#########<br/>
+          ........#...#..<br/>
+          ....#########..<br/>
+          ....#...#......<br/>
+          ....#...#......<br/>
+          ....#...#......<br/>
+          ....#####......<br/>
+        </code>
+      </pre>
+      <p>
+        In order for the vacuum robot to visit <strong>every part of
+        the scaffold at least once</strong>, one path it could take
+        is:
+      </p>
+      <pre>
+        <code>
+          R,8,R,8,R,4,R,4,R,8,L,6,L,2,R,4,R,4,R,8,R,8,R,8,L,6,L,2
+        </code>
+      </pre>
+      <p>
+        Without the memory limit, you could just supply this whole
+        string to function A and have the main routine call A once.
+        However, you'll need to split it into smaller parts.
+      </p>
+      <p>
+        One approach is:
+      </p>
+      <ul>
+        <li>
+          Main routine: A,B,C,B,A,C<br/>
+          (ASCII input: 65, 44, 66, 44, 67, 44, 66, 44, 65, 44, 67, 10)
+        </li>
+        <li>
+          Function A:   R,8,R,8<br/>
+          (ASCII input: 82, 44, 56, 44, 82, 44, 56, 10)
+        </li>
+        <li>
+          Function B:   R,4,R,4,R,8
+          (ASCII input: 82, 44, 52, 44, 82, 44, 52, 44, 82, 44, 56, 10)
+        </li>
+        <li>
+          Function C:   L,6,L,2
+          (ASCII input: 76, 44, 54, 44, 76, 44, 50, 10)
+        </li>
+      </ul>
+      <p>
+        Visually, this would break the desired path into the
+        following parts:
+      </p>
+      <pre>
+        <code>
+          A,        B,            C,        B,            A,        C<br/>
+          R,8,R,8,  R,4,R,4,R,8,  L,6,L,2,  R,4,R,4,R,8,  R,8,R,8,  L,6,L,2<br/>
+          <br/>
+          CCCCCCA...BBBBB<br/>
+          C.....A...B...B<br/>
+          C.....A...B...B<br/>
+          ......A...B...B<br/>
+          ......A...CCC.B<br/>
+          ......A.....C.B<br/>
+          ^AAAAAAAA...C.B<br/>
+          ......A.A...C.B<br/>
+          ......AAAAAA#AB<br/>
+          ........A...C..<br/>
+          ....BBBB#BBBB..<br/>
+          ....B...A......<br/>
+          ....B...A......<br/>
+          ....B...A......<br/>
+          ....BBBBA......<br/>
+        </code>
+      </pre>
+      <p>
+        Of course, the scaffolding outside your ship is much more complex.
+      </p>
+      <p>
+        As the vacuum robot finds other robots and notifies them of the
+        impending solar flare, it also can't help but leave them squeaky
+        clean, collecting any space dust it finds. Once it finishes the
+        programmed set of movements, assuming it hasn't drifted off into
+        space, the cleaning robot will return to its docking station and
+        report the amount of space dust it collected as a large, non-ASCII
+        value in a single output instruction.
+      </p>
+      <p>
+        After visiting every part of the scaffold at least once, <strong>how
+        much dust does the vacuum robot report it has collected?</strong>
+      </p>
+      <p>
+        Your puzzle answer was <strong className="green">1681189</strong>.
       </p>
     </section>
   )
