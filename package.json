@@ -1,14 +1,13 @@
 {
   "name": "2019-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "lz4": "^0.6.3",
-    "lz78": "^1.0.2",
-    "node-dijkstra": "^2.5.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0"
+  "browserslist": [
+    "defaults"
+  ],
+  "engines": {
+    "node": "16.x",
+    "yarn": "1.x"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,16 +18,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "lz4": "^0.6.3",
+    "lz78": "^1.0.2",
+    "node-dijkstra": "^2.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3"
   }
 }
