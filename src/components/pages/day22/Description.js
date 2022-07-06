@@ -224,7 +224,7 @@ const Description = (props) => {
         10007 cards, <strong>what is the position of card 2019?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">2480</strong>.
       </p>
       <br />
       <h3>
@@ -260,7 +260,7 @@ const Description = (props) => {
         position 2020?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">62416301438548</strong>.
       </p>
     </section>
   )

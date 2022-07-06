@@ -1,67 +1,109 @@
+import NumbersLogic from 'numbers-logic'
+
 class Deck {
-  constructor(size = 10) {
-    this.cards = Array(size).fill(0).map((v, i) => i)
+  constructor(size = 10n) {
+    this.size = size
   }
 
   // ========== PUBLIC ====================================
 
-  getCardAt(pos) {
-    return this.cards[pos]
-  }
-  
-  getPositionFor(card) {
-    return this.cards.indexOf(card)
+  getBackwardCommands(commands, invert) {
+    const cmds = this._parseCommands(commands)
+
+    return this._invertCommands(cmds)
   }
 
-  shuffle(commands) {
-    const regex = /(deal into new stack|deal with increment|cut)\s?(-?\d*)/
-    commands.forEach(raw => {
-      const [rawMethod, rawInput] = raw.match(regex).slice(1,3)
-      const method = this.getShuffleMethod(rawMethod)
-      const input  = (rawInput === "") ? null : parseInt(rawInput)
-      this[method](input)
+  getForwardCommands(commands, invert) {
+    return this._parseCommands(commands)
+  }
+
+  // ========== PRIVATE (PARSING) =========================
+
+  _getShuffleFnInput(fnName, rawInput, invert) {
+    let input = parseInt(rawInput)
+    if (!isNaN(input)) {
+      input = BigInt(input)                       // eslint-disable-line
+    }
+
+    switch (fnName) {
+      case "_forwardCut":
+        return (this.size + input) % this.size    // coerce to positive
+      case "_forwardIncrement":
+        return input                              // always positive
+      default:
+        return null                               // always null
+    }
+  }
+
+  _getShuffleFnName(text) {
+    const fnMap = {
+      "cut":                 "_forwardCut",
+      "deal into new stack": "_forwardNew",
+      "deal with increment": "_forwardIncrement",
+    }
+    return fnMap[text]
+  }
+
+  // ========== PRIVATE (CONVERSION) ======================
+
+  _invertCommands(commands) {
+    const cmds = []
+
+    commands.reverse().forEach(cmd => {
+      cmds.push({
+        name:  cmd.name.replace("forward", "backward"),
+        input: cmd.input
+      })
     })
+
+    return cmds
   }
 
-  // ========== PRIVATE ===================================
+  _parseCommands(commands) {
+    const regex = /(deal into new stack|deal with increment|cut)\s?(-?\d*)/
+    const cmds  = []
 
-  getShuffleMethod(raw) {
-    const map = {
-      "cut":                 "shuffleCut",
-      "deal into new stack": "shuffleReverse",
-      "deal with increment": "shuffleIncrement",
-    }
-    return map[raw]
+    commands.forEach(raw => {
+      const [cmdText, cmdInput] = raw.match(regex).slice(1,3)
+      const fnName      = this._getShuffleFnName(cmdText)
+      const fnInput     = this._getShuffleFnInput(fnName, cmdInput)
+
+      cmds.push({ name: fnName, input: fnInput })
+    })
+
+    return cmds
   }
 
-  shuffleCut(index) {
-    const temp = [...this.cards]
-    const tail = temp.slice(0, index)
-    const head = temp.slice(index)
-    this.cards = head.concat(tail)
+  // ========== PRIVATE (SHUFFLE > FORWARD) ===============
+
+  _forwardCut(cut) {
+    return [1n, this.size - cut]
   }
 
-  shuffleIncrement(increment) {
-    const map  = this.cards.reduce((hash, card, i) => {
-      hash[i] = card
-      return hash
-    }, {})
-    const size  = this.cards.length
-    const temp  = Array(size)
-    let   iIndex = 0
-    let   oIndex = 0
-    while (iIndex < size) {
-      temp[oIndex] = map[iIndex]
-
-      iIndex = iIndex + 1
-      oIndex = (oIndex + increment) % size
-    }
-    this.cards = temp
+  _forwardIncrement(increment) {
+    return [increment, 0n]
   }
 
-  shuffleReverse() {
-    const temp = [...this.cards]
-    this.cards = temp.reverse()
+  _forwardNew() {
+    return [-1n, this.size - 1n]
+  }
+
+  // ========== PRIVATE (SHUFFLE > BACKWARD) ==============
+
+  _backwardCut(cut) {
+    cut = (this.size + cut) % this.size
+    return [1n, cut]
+  }
+
+  _backwardIncrement(increment) {
+    increment = NumbersLogic.inverseMod(parseInt(increment), parseInt(this.size))
+    increment = BigInt(increment)   // eslint-disable-line
+
+    return [increment, 0n]
+  }
+
+  _backwardNew(_) {
+    return [-1n, this.size - 1n]
   }
 }
 
