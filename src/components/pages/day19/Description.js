@@ -64,18 +64,80 @@ const Description = (props) => {
         this will be 0 through 49.)
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">173</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        You aren't sure how large Santa's ship is. You aren't even sure if you'll
+        need to use this thing on Santa's ship, but it doesn't hurt to be prepared.
+        You figure Santa's ship might fit in a <strong>100x100</strong> square.
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+        The beam gets wider as it travels away from the emitter; you'll need to be
+        a minimum distance away to fit a square of that size into the beam fully.
+        (Don't rotate the square; it should be aligned to the same axes as the
+        drone grid.)
+      </p>
+      <p>
+        For example, suppose you have the following tractor beam readings:
+      </p>
+      <pre>
+        <code>
+          #.......................................<br/>
+          .#......................................<br/>
+          ..##....................................<br/>
+          ...###..................................<br/>
+          ....###.................................<br/>
+          .....####...............................<br/>
+          ......#####.............................<br/>
+          ......######............................<br/>
+          .......#######..........................<br/>
+          ........########........................<br/>
+          .........#########......................<br/>
+          ..........#########.....................<br/>
+          ...........##########...................<br/>
+          ...........############.................<br/>
+          ............############................<br/>
+          .............#############..............<br/>
+          ..............##############............<br/>
+          ...............###############..........<br/>
+          ................###############.........<br/>
+          ................#################.......<br/>
+          .................########OOOOOOOOOO.....<br/>
+          ..................#######OOOOOOOOOO#....<br/>
+          ...................######OOOOOOOOOO###..<br/>
+          ....................#####OOOOOOOOOO#####<br/>
+          .....................####OOOOOOOOOO#####<br/>
+          .....................####OOOOOOOOOO#####<br/>
+          ......................###OOOOOOOOOO#####<br/>
+          .......................##OOOOOOOOOO#####<br/>
+          ........................#OOOOOOOOOO#####<br/>
+          .........................OOOOOOOOOO#####<br/>
+          ..........................##############<br/>
+          ..........................##############<br/>
+          ...........................#############<br/>
+          ............................############<br/>
+          .............................###########<br/>
+        </code>
+      </pre>
+      <p>
+        In this example, the <strong>10x10</strong> square closest to the emitter
+        that fits entirely within the tractor beam has been marked O. Within it, the point
+        closest to the emitter (the only highlighted <strong>O</strong>) is at X=25, Y=20.
+      </p>
+      <p>
+        Find the <strong>100x100</strong> square closest to the emitter that fits entirely
+        within the tractor beam; within that square, find the point closest to the emitter.
+        <strong>What value do you get if you take that point's X coordinate, multiply it by
+        10000, then add the point's Y coordinate?</strong> (In the example above, this
+        would be 250020.)
+      </p>
+      <p>
+        Your puzzle answer was <strong className="green">6671097</strong>.
+      </p>
     </section>
   )
 }

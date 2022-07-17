@@ -6,23 +6,31 @@ class BeamPoint extends Point {
     this.setStatus(status)
   }
 
-  // ========== PUBLIC ====================================
+  // ========== ATTRIBUTES ================================
 
-  isPulled() {
-    return this.getStatus() === 1
+  // score
+  getScore() {
+    return (this.x * 10000) + this.y
   }
 
-  render() {
-    return (this.isPulled()) ? '#' : '.'
-  }
-
-  // ========== PRIVATE ===================================
-
+  // status
   getStatus() {
     return this.meta.status
   }
   setStatus(val) {
     this.meta.status = (val === 1) ? 1 : 0
+  }
+
+  // ========== ACTIONS ===================================
+
+  render() {
+    return (this.isPulled()) ? '#' : '.'
+  }
+
+  // ========== STATE =====================================
+
+  isPulled() {
+    return this.getStatus() === 1
   }
 }
 
