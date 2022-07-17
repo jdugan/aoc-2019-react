@@ -1,4 +1,5 @@
-import Beam from "./Beam"
+import ArrayUtil from '../../../../util/Arrays'
+import Beam      from './Beam'
 
 class Runner {
   constructor(program) {
@@ -7,17 +8,32 @@ class Runner {
 
   compute(part) {
     if (part === "1") {
-      return this.pullSize()
+      return this.calculateStrength()
     }
-    return 2
+    return this.calculateBestPointValue(100)
   }
 
   // ========== RUNNERS ===================================
 
-  pullSize() {
-    const beam = new Beam([...this.program], 50)
+  // answers
+  //  6681099 => too high (668, 1099)
+  //
+  calculateBestPointValue(size) {
+    const beam = new Beam([...this.program])
+
+    const best_binary = beam.findBestPointByBinarySearch(2 ** 12, size)
+    const best_linear = beam.findBestPointByLinearSearch(best_binary, size)
+
+    return best_linear.getScore()
+  }
+
+  calculateStrength() {
+    const beam  = new Beam([...this.program])
+
+    beam.buildGrid(0, 0, 50, 50)
     beam.print()
-    return beam.pullSize()
+
+    return beam.getStrength()
   }
 }
 export default Runner
