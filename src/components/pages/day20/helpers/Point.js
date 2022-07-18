@@ -6,13 +6,26 @@ class Point extends GridPoint {
     this.setType(this.getTypeForVisual(visual))
   }
 
+  // ========== ACTIONS ===================================
+
+  clone() {
+    const type   = this.getType()
+    const visual = this.getVisualForType(type)
+
+    return new Point(this.x, this.y, visual)
+  }
+
+  makeWall() {
+    this.setType(this.getTypeForVisual('#'))
+  }
+
   // ========== GETTERS/SETTERS ===========================
 
   // name
   getName() {
     return this.meta.name
   }
-  setName(name) {
+  setName(name = null) {
     this.meta.name = name
   }
 

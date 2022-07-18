@@ -1,4 +1,3 @@
-import Graph   from "node-dijkstra"
 import Point   from "./Point"
 import Printer from "../../../../lib/GridPrinter"
 
@@ -6,51 +5,14 @@ class Maze {
   constructor(data) {
     this.data    = data
     this.grid    = this.buildGrid()
-    this.portals = this.buildPortals()
-
-    this.assignPortals()
+    this.portals = this.buildPortalMap()
   }
 
-  // ========== PUBLIC ====================================
+  // ========== GRID ======================================
 
-  shortestPath(start, finish) {
-    const startId  = this.getPointIdByName(start)
-    const finishId = this.getPointIdByName(finish)
-    const graph    = this.buildGraph()
-    const path     = graph.path(startId, finishId)
-    return path
-  }
-
-  // ========== PRIVATE ===================================
-
-  assignPortals() {
-    Object.entries(this.portals).forEach(([name, ids]) => {
-      ids.forEach(id => {
-        this.grid[id].setName(name)
-      })
-    })
-  }
-
-  buildGraph() {
-    const graph = new Graph()
-    const dirs  = ['north', 'south', 'east', 'west']
-    Object.values(this.grid).forEach(p0 => {
-      const nodes = {}
-      const ps    = dirs.map(d => this.grid[p0.idForDirection(d)]).filter(p => p)
-      ps.forEach(p1 => {
-        nodes[p1.id()] = 1
-      })
-      if (p0.getName()) {
-        const pp = this.getPortalPartnerById(p0)
-        if (pp) {
-          nodes[pp.id()] = 1
-        }
-      }
-      graph.addNode(p0.id(), nodes)
-    })
-    return graph
-  }
-
+  // only bother to record paths to simplify creating
+  // the graphs later.
+  //
   buildGrid() {
     const grid = {}
     let   point
@@ -65,60 +27,86 @@ class Maze {
     return grid
   }
 
-  buildPortals() {
-    const portals = {}
-    const regex1  = /[A-Z]{2}\./g
-    const regex2  = /\.[A-Z]{2}/g
-    let   data    = [...this.data]
-    let   matches
-    let   name
-    let   index
-    let   offset
 
-    data.forEach((row, y) => {      // horizontals
-      matches = (row.match(regex1) || []).concat(row.match(regex2) || [])
-      matches.forEach(m => {
-        index   = 0
-        index  = row.slice(index).indexOf(m)
-        offset = row.slice(index).indexOf('.')
-        name   = m.replace('.', '')
-        if (!portals[name]) {
-          portals[name] = []
-        }
-        portals[name].push(`${ index + offset }|${ y }`)
-      })
-    })
-    data = this.invertData(data)
-    data.forEach((row, x) => {      // verticals
-      matches = (row.match(regex1) || []).concat(row.match(regex2) || [])
-      matches.forEach(m => {
-        index   = 0
-        index = row.slice(index).indexOf(m)
-        offset = row.slice(index).indexOf('.')
-        name  = m.replace('.', '')
-        if (!portals[name]) {
-          portals[name] = []
-        }
-        portals[name].push(`${ x }|${ index + offset }`)
-      })
-    })
+  // ========== PORTALS ===================================
+
+  // locate all portals and associate names with
+  // x,y coordinates (i.e., ignore z-plane here)
+  //
+  buildPortalMap() {
+    const h_rows  = [...this.data]
+    const v_rows  = this.invertData(h_rows)
+    let   portals = {}
+
+    portals = this.buildPortalMapFromRows(portals, h_rows, false)
+    portals = this.buildPortalMapFromRows(portals, v_rows, true)
+
     return portals
   }
 
-  getPointIdByName(name) {
-    const point = Object.values(this.grid).find(p => {
-      return p.getName() === name
-    })
-    return point.id()
+  // main parse function for portal mapping; inverted rows are
+  // vertical rather than horizontal
+  //
+  buildPortalMapFromRows(hash, rows, isInverted) {
+    const regex  = /^([A-Z]{2}|\s{2})[\.#]*([A-Z]{2}|\s{2})\s*([A-Z]{2}|\s{2})[\.#]*([A-Z]{2}|\s{2})$/
+    let   index
+    let   key
+
+    for (let i = 0; i < rows.length; i++) {
+      const row     = rows[i]
+      const matches = row.match(regex)
+
+      if (matches) {
+        const name1 = matches[1].toString().trim()
+        const name2 = matches[2].toString().trim()
+        const name3 = matches[3].toString().trim()
+        const name4 = matches[4].toString().trim()
+
+        hash[name1] = hash[name1] || {}
+        hash[name2] = hash[name2] || {}
+        hash[name3] = hash[name3] || {}
+        hash[name4] = hash[name4] || {}
+        delete(hash[""])
+
+        if (name1.length == 2) {
+          index = 2
+          key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
+          hash[name1].outer = key
+        }
+        if (name2.length == 2) {
+          index = row.slice(2, -2).indexOf(name2) + 1 // i.e., + 2 - 1
+          key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
+          hash[name2].inner = key
+        }
+        if (name3.length == 2) {
+          index = row.slice(2, -2).indexOf(name3) + 4 // i.e., + 2 + 2
+          key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
+          hash[name3].inner = key
+        }
+        if (name4.length == 2) {
+          index = row.length - 3
+          key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
+          hash[name4].outer = key
+        }
+      }
+    }
+
+    return hash
   }
 
-  getPortalPartnerById(p0) {
-    const id  = p0.id()
-    const ids = Object.values(this.portals).find(arr => arr.includes(id))
-    const pid = ids.filter(item => item !== id)[0]
-    return this.grid[pid]
+  getPortalPartnerId(point) {
+    const name = point.getName()
+    const hash = this.portals[name]
+    const id   = (hash.outer == point.id()) ? hash.inner : hash.outer
+
+    return id
   }
 
+  // ========== DATA ======================================
+
+  // makes it easier to trap vertical portals; can treat
+  // them the same as horizontal portals.
+  //
   invertData(input) {
     const xSize = input[0].split('').length
     const ySize = input.length
@@ -131,8 +119,10 @@ class Maze {
     return output
   }
 
+  // ========== RENDERING =================================
+
   print() {
-    const printer = new Printer(this.grid)
+    const printer = new Printer(this.grid, '#')
     printer.print()
   }
 }
