@@ -42,7 +42,7 @@ const Description = (props) => {
           DE..#######...###.#<br/>
           &nbsp; #.#########.###.#<br/>
           FG..#########.....#<br/>
-          &nbsp;###########.#####<br/>
+          &nbsp; ###########.#####<br/>
           &nbsp;           Z<br/>
           &nbsp;           Z<br/>
         </code>
@@ -289,7 +289,7 @@ YN......#               VT..#....QG<br/>
         both at the outermost layer?</strong>
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">5652</strong>.
       </p>
     </section>
   )

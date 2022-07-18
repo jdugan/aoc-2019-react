@@ -1,4 +1,5 @@
-import Maze from "./Maze"
+import SimpleMaze  from "./SimpleMaze"
+import StackedMaze from "./StackedMaze"
 
 class Runner {
   constructor(data) {
@@ -7,16 +8,24 @@ class Runner {
 
   compute(part) {
     if (part === "1") {
-      return this.shortestPath()
+      return this.shortestPathForSimpleMaze()
     }
-    return 2
+    return this.shortestPathForStackedMaze()
   }
 
   // ========== RUNNERS ===================================
 
-  shortestPath() {
-    const maze = new Maze(this.data)
+  shortestPathForSimpleMaze() {
+    const maze = new SimpleMaze(this.data)
     const path = maze.shortestPath('AA', 'ZZ')
+
+    return path.length - 1
+  }
+
+  shortestPathForStackedMaze() {
+    const maze = new StackedMaze(this.data)
+    const path = maze.shortestPath('AA', 'ZZ')
+
     return path.length - 1
   }
 }

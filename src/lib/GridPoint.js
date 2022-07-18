@@ -5,6 +5,12 @@ class GridPoint {
     this.meta = meta
   }
 
+  // ========== ACTIONS ===================================
+
+  clone() {
+    return new GridPoint(this.x, this.y, { ...this.meta })
+  }
+
   // ========== IDS =======================================
 
   // ids (self)
