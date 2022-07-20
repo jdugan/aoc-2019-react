@@ -19,7 +19,7 @@ const data = {
   "18": [true, true],
   "19": [true, true],
   "20": [true, true],
-  "21": [false, false],
+  "21": [true, true],
   "22": [true, true],
   "23": [false, false],
   "24": [true, false],
