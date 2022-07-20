@@ -34,7 +34,7 @@ class Runner {
     const asciis = cmds.map(cmd => {
       return cmd.split('').map(s => s.charCodeAt(0)).concat([10])
     })
-    const input    = asciis.reduce((arr, cmd) => {
+    const input = asciis.reduce((arr, cmd) => {
       arr = arr.concat(cmd)
       return arr
     }, [])
