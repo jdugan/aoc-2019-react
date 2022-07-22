@@ -20,7 +20,7 @@ class App extends React.Component {
     }
 
     this.state = {
-      day:  "25", //day.toString(),
+      day:  "24", //day.toString(),
       env:  "test",
       part: "1"
     }
