@@ -1,7 +1,9 @@
 class IntcodeComputer {
-  constructor(program = [], pausable = false) {
+  constructor(program = [], pausable = false, fns = {}) {
     this.program  = program
     this.pausable = pausable
+    this.inputFn  = fns.input  || this._receiveInput
+    this.outputFn = fns.output || this._sendOutput
 
     this.modes = {
       0:  { in: 'renderPositionInMode',  out: 'renderPositionOutMode'  },
@@ -44,6 +46,8 @@ class IntcodeComputer {
 
         const offset  = this[method](operands, input)
         this.pointer += offset
+
+        // console.log(!this.paused, !this.halted, this.pointer < this.program.length)
       }
     }
 
@@ -124,17 +128,17 @@ class IntcodeComputer {
   }
 
   performInput(operands, input) {
-    const writeAddress = operands.shift()
-    this.program[writeAddress] = input.shift()
-    return 2
+    const self = this
+    const code = this.inputFn(self, operands, input)
+
+    return code
   }
 
   performOutput(operands) {
-    this.output.push(operands.shift())
-    if (this.pausable) {
-      this.paused = true
-    }
-    return 2
+    const self = this
+    const code = this.outputFn(self, operands)
+
+    return code
   }
 
   performJumpTrue(operands) {
@@ -165,8 +169,27 @@ class IntcodeComputer {
   }
 
   performHalt() {
+    console.log('halting....')
     this.halted = true
     return 0
+  }
+
+  // ========== OPCODES (OVERRIDABLE) =====================
+
+  _receiveInput(computer, operands, input) {
+    const addr  = operands.shift()
+    const value = input.shift()
+
+    computer.program[addr] = value
+    return 2
+  }
+
+  _sendOutput(computer, operands) {
+    computer.output.push(operands.shift())
+    if (computer.pausable) {
+      computer.paused = true
+    }
+    return 2
   }
 }
 
