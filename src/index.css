@@ -17,6 +17,10 @@ h2 {
   font-size: 1.4em;
   color: #0c0;
 }
+h2 a, h2 a:hover, h2 a:visited {
+  color: #0c0;
+  text-decoration: none;
+}
 h3 {
   margin: 0 0 0.7em;
   font-size: 1em;

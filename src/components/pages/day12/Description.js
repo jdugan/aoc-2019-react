@@ -321,9 +321,12 @@ const Description = (props) => {
         <strong>How many steps does it take</strong> to reach the first
         state that exactly matches a previous state?
       </p>
-
       <p>
         Your puzzle answer was <strong className="green">528250271633772</strong>.
+      </p>
+      <p>
+        <strong className="gold">Both parts of this puzzle are complete! They
+        provide two gold stars: **</strong>
       </p>
     </section>
   )

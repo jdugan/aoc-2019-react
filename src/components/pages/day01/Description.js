@@ -112,6 +112,10 @@ const Description = (props) => {
       <p>
         Your puzzle answer was <strong className="green">4920708</strong>.
       </p>
+      <p>
+        <strong className="gold">Both parts of this puzzle are complete! They
+        provide two gold stars: **</strong>
+      </p>
     </section>
   )
 }
