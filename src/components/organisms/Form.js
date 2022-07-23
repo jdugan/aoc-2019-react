@@ -5,8 +5,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      env:  "test",
-      part: "1"
+      env:  props.env,
+      part: props.part
     }
   }
 

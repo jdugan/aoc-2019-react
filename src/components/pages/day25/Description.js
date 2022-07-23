@@ -68,18 +68,37 @@ const Description = (props) => {
         Look around the ship and see if you can find the <strong>password for the main airlock</strong>.
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
+        Your puzzle answer was <strong className="green">25166400</strong>.
       </p>
       <br />
-      {/* <h3>
+      <h3>
         --- Part Two ---
       </h3>
       <p>
-        Description starts here.
+        As you move through the main airlock, the air inside the ship is already heating
+        up to reasonable levels. Santa explains that he didn't notice you coming because
+        he was just taking a quick nap. The ship wasn't frozen; he just had the
+        thermostat set to "North Pole".
       </p>
       <p>
-        Your puzzle answer was <strong className="green">????</strong>.
-      </p> */}
+        You make your way over to the navigation console. It beeps. "Status: Stranded.
+        Please supply measurements from <strong className="gold">49 stars</strong> to
+        recalibrate."
+      </p>
+      <p>
+        "49 stars? But the Elves told me you needed fifty--"
+      </p>
+      <p>
+        Santa just smiles and nods his head toward the window. There, in the distance,
+        you can see the center of the Solar System: the Sun!
+      </p>
+      <p>
+        The navigation console beeps again.
+      </p>
+      <p>
+        <strong className="gold">Both parts of this puzzle are complete! They
+        provide two gold stars: **</strong>
+      </p>
     </section>
   )
 }

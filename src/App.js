@@ -20,8 +20,8 @@ class App extends React.Component {
     }
 
     this.state = {
-      day:  "24", //day.toString(),
-      env:  "test",
+      day:  day.toString(),
+      env:  "prod",
       part: "1"
     }
   }
@@ -51,7 +51,7 @@ class App extends React.Component {
           <Description day={ day } />
         </section>
         <section className="app__form">
-          <Form onSubmit={ this.handleFormSubmit } />
+          <Form env={ env } part={ part } onSubmit={ this.handleFormSubmit } />
         </section>
         <section className="app__result">
           <Result day={ day } env={ env } part={ part } />
