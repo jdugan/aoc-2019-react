@@ -35,7 +35,7 @@ class NetworkController {
     const addr  = operands.shift()
     const value = (this.queue.length) ? this.queue.shift() : -1
 
-    if (value == -1) {
+    if (value === -1) {
       if (this.idle) {
         computer.paused = true
       } else {
@@ -51,7 +51,7 @@ class NetworkController {
 
   _sendOutput(computer, operands) {
     computer.output.push(operands.shift())
-    if (computer.output.length == 3) {
+    if (computer.output.length === 3) {
       computer.paused = true
     }
     return 2

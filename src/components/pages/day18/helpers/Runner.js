@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 import Game from "./Game"
 import Grid from "./Grid"
 
@@ -28,15 +29,15 @@ class Runner {
     while (current_possibles.length > 0) {
       const new_possibles = []
       current_possibles.forEach(possible => {
-        if (possible.keys.length == numKeys) {
-          if (best == -1 || best > possible.steps) {
+        if (possible.keys.length === numKeys) {
+          if (best === -1 || best > possible.steps) {
             best = possible.steps
           }
         }
         else {
           const new_games = possible.generateNewGames(this.grid)
           new_games.forEach(ng => {
-            if (best == -1 || best > ng.steps) {
+            if (best === -1 || best > ng.steps) {
               new_possibles.push(ng)
             }
           })

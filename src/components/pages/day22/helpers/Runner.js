@@ -39,10 +39,10 @@ class Runner {
   // ========== PRIVATE ===================================
 
   raiseCoefficients(a, b, power, size) {
-    if (power == 0n) {
+    if (power === 0n) {
       return [1n, 0n]
     }
-    else if (power % 2n == 0n) {
+    else if (power % 2n === 0n) {
       const a1 = (a * a) % size
       const b1 = (a * b + b) % size
       const p1 = power / 2n

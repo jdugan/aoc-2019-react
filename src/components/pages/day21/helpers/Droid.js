@@ -16,7 +16,7 @@ class Droid {
     const text     = this.convertAsciiToPrintable(computer.output)
     console.log(text)
 
-    if (damage == 10) {
+    if (damage === 10) {
       return -1
     }
     return damage

@@ -57,16 +57,16 @@ class Tile extends GridPoint {
     return !!this.getVisual().match(/[A-Z]/)
   }
   isOrigin() {
-    return this.getVisual() == "@"
+    return this.getVisual() === "@"
   }
   isHall() {
-    return this.getVisual() == "."
+    return this.getVisual() === "."
   }
   isKey() {
     return !!this.getVisual().match(/[a-z]/)
   }
   isWall() {
-    return this.getVisual() == "#"
+    return this.getVisual() === "#"
   }
 }
 

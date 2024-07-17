@@ -9,9 +9,9 @@ const Result = (props) => {
   const { env, part } = props
   let   data
   if (env === 'test') {
-    data = (part == "1") ? part1TestData : part2TestData
+    data = (part === "1") ? part1TestData : part2TestData
   } else {
-    data = (part == "1") ? part1ProdData : part2ProdData
+    data = (part === "1") ? part1ProdData : part2ProdData
   }
   const runner = new Runner(data)
   const answer = runner.compute(part)

@@ -1,5 +1,4 @@
-import ArrayUtil from '../../../../util/Arrays'
-import Beam      from './Beam'
+import Beam from './Beam'
 
 class Runner {
   constructor(program) {

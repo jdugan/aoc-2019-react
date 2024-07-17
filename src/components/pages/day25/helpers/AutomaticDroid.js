@@ -101,7 +101,7 @@ class AutomaticDroid {
   }
 
   moveToRoom(roomId) {
-    if (roomId == this.position) {
+    if (roomId === this.position) {
       return this.rooms[this.position]
     }
 
@@ -159,10 +159,10 @@ class AutomaticDroid {
 
     // visual
     let visual = "."
-    if (id == "0|0") {
+    if (id === "0|0") {
       visual = 'O'
     }
-    if (name == "Security Checkpoint") {
+    if (name === "Security Checkpoint") {
       visual = "X"
     }
 
@@ -210,7 +210,7 @@ class AutomaticDroid {
       const code   = this.computer.output.shift()
       output.unshift(code)
 
-      if (output.slice(0, 8).join(",") == terminus || output.length > 5000) {
+      if (output.slice(0, 8).join(",") === terminus || output.length > 5000) {
         processing = false
       }
     }

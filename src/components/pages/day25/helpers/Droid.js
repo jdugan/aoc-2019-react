@@ -1,5 +1,4 @@
 import Computer from "../../../../lib/IntcodeComputer"
-import Room     from "./Room"
 
 class Droid {
   constructor(program) {
@@ -89,11 +88,11 @@ class Droid {
     let   processing = true
 
     while (processing) {
-      const status = this.computer.run(input)
-      const code   = this.computer.output.shift()
+      this.computer.run(input)
+      const code = this.computer.output.shift()
       output.unshift(code)
 
-      if (output.slice(0, 8).join(",") == terminus || output.length > 5000) {
+      if (output.slice(0, 8).join(",") === terminus || output.length > 5000) {
         processing = false
       }
     }

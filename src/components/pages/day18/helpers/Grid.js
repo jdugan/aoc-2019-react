@@ -21,7 +21,7 @@ class Grid {
     const lower = letter.toLowerCase()
 
     Object.values(this.tiles).forEach(t => {
-      if (t.getVisual() == upper || t.getVisual() == lower) {
+      if (t.getVisual() === upper || t.getVisual() === lower) {
         this.tiles[t.id()] = t.toHall()
       }
     })

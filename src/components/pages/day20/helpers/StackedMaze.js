@@ -2,9 +2,6 @@ import Graph   from "node-dijkstra"
 import Maze    from "./Maze"
 
 class StackedMaze extends Maze {
-  constructor(data) {
-    super(data)
-  }
 
   // ========== ACTIONS ===================================
 
@@ -28,7 +25,7 @@ class StackedMaze extends Maze {
 
   assignBasePortalsToGrid() {
     Object.entries(this.portals).forEach(([name, idHash]) => {
-      if (name == 'AA' || name == 'ZZ') {
+      if (name === 'AA' || name === 'ZZ') {
         this.grid[idHash.outer].setName(name)
         // will never be on the inner edge
       } else {
@@ -42,7 +39,7 @@ class StackedMaze extends Maze {
 
   assignNestedPortalsToGrid() {
     Object.entries(this.portals).forEach(([name, idHash]) => {
-      if (name == 'AA' || name == 'ZZ') {
+      if (name === 'AA' || name === 'ZZ') {
         this.grid[idHash.outer].makeWall()
         this.grid[idHash.outer].setName()
         // will never be on the inner edge
@@ -58,9 +55,9 @@ class StackedMaze extends Maze {
   // ========== GRAPH =====================================
 
   addLevelToGraph(graph, level) {
-    const grid  = this.assignNestedPortalsToGrid()
     const dirs  = ['north', 'south', 'east', 'west']
 
+    this.assignNestedPortalsToGrid()
     Object.values(this.grid).forEach(p0 => {
       const nodes = {}
       const ps    = dirs.map(d => this.grid[p0.idForDirection(d)]).filter(p => p)
@@ -77,7 +74,7 @@ class StackedMaze extends Maze {
         let   pp_id
         let   pp_key
 
-        if (p0_portals.outer == p0.id()) {
+        if (p0_portals.outer === p0.id()) {
           pp_id  = p0_portals.inner
           pp_key = `${ pp_id },${ level - 1 }`
         } else {
@@ -97,9 +94,9 @@ class StackedMaze extends Maze {
 
   buildBaseGraph() {
     const graph = new Graph()
-    const grid  = this.assignBasePortalsToGrid()
     const dirs  = ['north', 'south', 'east', 'west']
 
+    this.assignBasePortalsToGrid()
     Object.values(this.grid).forEach(p0 => {
       const nodes = {}
       const ps    = dirs.map(d => this.grid[p0.idForDirection(d)]).filter(p => p)
@@ -115,7 +112,7 @@ class StackedMaze extends Maze {
         let   pp_id
         let   pp_key
 
-        if (p0_portals.inner == p0.id()) {
+        if (p0_portals.inner === p0.id()) {
           pp_id  = p0_portals.outer
           pp_key = `${ pp_id },1`
         }

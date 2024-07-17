@@ -1,5 +1,4 @@
-import ArrayUtil from "../../../../util/Arrays"
-import Tile      from "./Tile"
+import Tile from "./Tile"
 
 class RecursiveGrid {
   constructor(data) {
@@ -75,7 +74,7 @@ class RecursiveGrid {
     let   tile
     data.forEach((row, y) => {
       row.split('').forEach((visual, x) => {
-        if (x == 2 && y ==2) {
+        if (x === 2 && y === 2) {
           // skip center
         } else {
           tile = new Tile(x, y, visual)
@@ -91,7 +90,7 @@ class RecursiveGrid {
     let   tile
     for (let y = 0; y < 5; y++) {
       for (let x = 0; x < 5; x++) {
-        if (x == 2 && y ==2) {
+        if (x === 2 && y === 2) {
           // skip center
         } else {
           tile = new Tile(x, y, '.')

@@ -27,36 +27,36 @@ class Tile extends GridPoint {
     const tuples = []
 
     // outer cells > toward layer above
-    if (this.x == 0) {                    // left
+    if (this.x === 0) {                    // left
       tuples.push([z + 1, "1|2"])
     }
-    if (this.x == 4) {                    // right
+    if (this.x === 4) {                    // right
       tuples.push([z + 1, "3|2"])
     }
-    if (this.y == 0) {                    // top
+    if (this.y === 0) {                    // top
       tuples.push([z + 1, "2|1"])
     }
-    if (this.y == 4) {                    // bottom
+    if (this.y === 4) {                    // bottom
       tuples.push([z + 1, "2|3"])
     }
 
     // inner cells > toward layer below
-    if (this.x == 1 && this.y == 2) {     // left
+    if (this.x === 1 && this.y === 2) {     // left
       for (let y = 0; y < 5; y++) {
         tuples.push([z - 1, `0|${ y }`])
       }
     }
-    if (this.x == 3 && this.y == 2) {     // right
+    if (this.x === 3 && this.y === 2) {     // right
       for (let y = 0; y < 5; y++) {
         tuples.push([z - 1, `4|${ y }`])
       }
     }
-    if (this.x == 2 && this.y == 1) {     // top
+    if (this.x === 2 && this.y === 1) {     // top
       for (let x = 0; x < 5; x++) {
         tuples.push([z - 1, `${ x }|0`])
       }
     }
-    if (this.x == 2 && this.y == 3) {     // bottom
+    if (this.x === 2 && this.y === 3) {     // bottom
       for (let x = 0; x < 5; x++) {
         tuples.push([z - 1, `${ x }|4`])
       }

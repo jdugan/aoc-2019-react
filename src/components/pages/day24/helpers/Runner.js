@@ -23,7 +23,7 @@ class Runner {
   }
 
   recursiveBugCount(env) {
-    const iters = (env == "test") ? 10 : 200
+    const iters = (env === "test") ? 10 : 200
     const grid  = new RecursiveGrid([...this.data])
     const count = grid.bugCountAfter(iters)
 

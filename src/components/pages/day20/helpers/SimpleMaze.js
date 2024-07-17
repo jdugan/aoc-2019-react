@@ -2,9 +2,6 @@ import Graph   from "node-dijkstra"
 import Maze    from "./Maze"
 
 class SimpleMaze extends Maze {
-  constructor(data) {
-    super(data)
-  }
 
   // ========== ACTIONS ===================================
 

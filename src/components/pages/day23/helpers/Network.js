@@ -22,7 +22,7 @@ class Network {
     while (!halt) {
       const idle = this.invokeControllers()
       if (idle) {
-        if (lastNatPacketY == this.natPacket[2]) {
+        if (lastNatPacketY === this.natPacket[2]) {
           halt = true
         } else {
           this.controllers[0].queue.push(this.natPacket[1])
@@ -60,7 +60,7 @@ class Network {
     })
 
     // determine state and return
-    const idle = (packets.length == 0)
+    const idle = (packets.length === 0)
     return idle
   }
 

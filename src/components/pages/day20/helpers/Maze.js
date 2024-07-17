@@ -48,7 +48,7 @@ class Maze {
   // vertical rather than horizontal
   //
   buildPortalMapFromRows(hash, rows, isInverted) {
-    const regex  = /^([A-Z]{2}|\s{2})[\.#]*([A-Z]{2}|\s{2})\s*([A-Z]{2}|\s{2})[\.#]*([A-Z]{2}|\s{2})$/
+    const regex  = /^([A-Z]{2}|\s{2})[.#]*([A-Z]{2}|\s{2})\s*([A-Z]{2}|\s{2})[.#]*([A-Z]{2}|\s{2})$/
     let   index
     let   key
 
@@ -68,22 +68,22 @@ class Maze {
         hash[name4] = hash[name4] || {}
         delete(hash[""])
 
-        if (name1.length == 2) {
+        if (name1.length === 2) {
           index = 2
           key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
           hash[name1].outer = key
         }
-        if (name2.length == 2) {
+        if (name2.length === 2) {
           index = row.slice(2, -2).indexOf(name2) + 1 // i.e., + 2 - 1
           key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
           hash[name2].inner = key
         }
-        if (name3.length == 2) {
+        if (name3.length === 2) {
           index = row.slice(2, -2).indexOf(name3) + 4 // i.e., + 2 + 2
           key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
           hash[name3].inner = key
         }
-        if (name4.length == 2) {
+        if (name4.length === 2) {
           index = row.length - 3
           key   = (isInverted) ? `${ i }|${ index }` : `${ index }|${ i }`
           hash[name4].outer = key
@@ -97,7 +97,7 @@ class Maze {
   getPortalPartnerId(point) {
     const name = point.getName()
     const hash = this.portals[name]
-    const id   = (hash.outer == point.id()) ? hash.inner : hash.outer
+    const id   = (hash.outer === point.id()) ? hash.inner : hash.outer
 
     return id
   }
