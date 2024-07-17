@@ -22,3 +22,4 @@ npm-debug.log*
 
 # aoc stuff
 src/components/pages/day*/data/prod.js
+src/components/pages/day*/data/puzzle*Prod.js
